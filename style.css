@@ -1,0 +1,409 @@
+/* style.css */
+:root {
+    --accent-green: #00ff41;    /* Verde Neon (para h2 e destaques) */
+    --dim-green: #008f11;       /* Verde Matrix (mais escuro para h3) */
+    /* ... outras variáveis ... */
+    --accent-red: #ff3131;
+    --accent-blue: #00d4ff;
+    --accent-amber: #ffbd59;
+    --accent-purple: #b537f2;
+    --bg-primary: #0a0a0a;
+    --text-main: #e0e0e0;
+
+}
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+    font-family: 'Fira Code', 'Courier New', monospace; /* Fontes que parecem código */
+    margin: 0;
+    line-height: 1.6;
+    position: relative; /* Necessário para o posicionamento do efeito */
+}
+
+/* Efeito de Scanlines (Linhas de monitor CRT antigo) */
+body::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    /* Reduzi a opacidade das linhas de 0.25 para 0.07 e das cores de 0.06 para 0.02 */
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.07) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+    z-index: 9999;
+    pointer-events: none;
+    background-size: 100% 3px, 2px 100%; /* Linhas um pouco mais finas */
+}
+
+header {
+    background-color: var(--bg-secondary);
+    padding: 60px 20px;
+    text-align: center;
+    border-bottom: 2px solid var(--accent-green);
+    /* Efeito de brilho no fundo do cabeçalho */
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+}
+
+/* Isso foca apenas no h2 que está dentro do header */
+header h2 {
+    color: var(--accent-green);
+    text-shadow: 0 0 8px var(--accent-green); /* Aqui acontece a mágica */
+    font-weight: normal; /* Deixa a fonte um pouco mais fina para o brilho não "borrar" o texto */
+}
+
+h1 {
+    color: var(--accent-green);
+    text-shadow: 0 0 10px var(--accent-green);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    
+    /* Configuração para o efeito de digitação */
+    overflow: hidden; 
+    border-right: 3px solid var(--accent-green); 
+    white-space: nowrap; 
+    
+    /* Faz a largura se ajustar exatamente ao tamanho do seu nome */
+    width: fit-content; 
+    margin: 0 auto; 
+    
+    /* Ativa as animações */
+    animation: 
+        typing 3.5s steps(30, end) forwards,
+        blink-caret 0.75s step-end infinite;
+} /* <-- A chave que faltava fechar */
+
+
+section {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 25px;
+    background-color: var(--bg-secondary);
+    border-radius: 5px;
+    border-left: 3px solid var(--accent-green);
+}
+
+h2 {
+    color: var(--accent-green);
+    font-size: 1.5rem;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+    
+    /* Configurações para a animação */
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid transparent; /* Cursor invisível até começar */
+    width: 0; /* Começa escondido */
+    margin-bottom: 20px;
+}
+
+/* Esta classe será adicionada pelo JavaScript quando o H2 aparecer na tela */
+/* Atualize o estado final do h1 e h2 */
+h1, h2.typing-active {
+    /* ... outras propriedades ... */
+    border-right: 3px solid var(--accent-green); /* Define a cor sólida como padrão final */
+    
+    animation: 
+        typing 2s steps(25, end) forwards,
+        blink-caret 0.5s step-end 1 forwards; /* Pisca 1 vez e mantém o estado final (forwards) */
+}
+
+/* Ajuste o Keyframe para garantir que termine visível */
+@keyframes blink-caret {
+    from { border-color: transparent; }
+    to { border-color: var(--accent-green); }
+}
+
+/* Unifica a cor de todos os H3 para o verde principal */
+h3 {
+    color: var(--dim-green);
+    text-shadow: none;         /* Garante que não haja brilho no texto */
+    box-shadow: none;           /* Remove sombras de caixa, se houver */
+    margin-top: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;      /* Reduzi um pouco para ficar mais discreto */
+}
+
+/* Garante que o efeito de terminal do H3 também acompanhe a cor mais escura */
+section h3::before {
+    color: #444;                /* Um cinza ainda mais discreto para o prompt */
+    text-shadow: none;
+}
+
+/* Estilizando os itens da lista como se fossem comandos de terminal */
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+ul li::before {
+    content: "> ";
+    color: var(--accent-green);
+    font-weight: bold;
+}
+
+a {
+    color: var(--accent-green);
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+a:hover {
+    background-color: var(--accent-green);
+    color: var(--bg-primary);
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+footer {
+    text-align: center;
+    padding: 40px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Estilo base do card */
+section div {
+    background-color: #111; /* Um pouco mais claro que o fundo principal */
+    padding: 20px;
+    margin-bottom: 15px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    transition: all 0.3s ease; /* A "mágica" para o efeito ser suave */
+    cursor: default;
+}
+
+/* O efeito de Interatividade (Hover) */
+section div:hover {
+    transform: translateY(-5px); /* Faz o card "subir" levemente */
+    border-color: var(--accent-green); /* A borda fica verde */
+    box-shadow: 0 5px 15px rgba(0, 255, 65, 0.2); /* Brilho sutil em volta do card */
+}
+
+a {
+    color: var(--accent-green);
+    text-decoration: none;
+    padding: 2px 5px;
+    border: 1px solid transparent;
+    transition: 0.3s;
+}
+
+a:hover {
+    background-color: var(--accent-green);
+    color: #000; /* Texto fica preto para contrastar com o fundo verde */
+    border-radius: 4px;
+}
+/* Animação que aumenta a largura do texto de 0 até o final */
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+/* Animação que faz a borda (cursor) aparecer e sumir */
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: var(--accent-green) }
+}
+
+/* Estilo BASE para todos os prompts (cor, fonte, etc) */
+section h3::before {
+    color: #555;
+    font-size: 0.9rem;
+    font-weight: normal;
+}
+
+/* Prompt para Habilidades */
+#habilidades h3::before {
+    content: "root@pedro:~/habilidades$ ";
+}
+
+/* Prompt para Projetos */
+#projetos h3::before {
+    content: "root@pedro:~/projetos$ ";
+}
+
+/* Prompt para Trajetória (Carreira) */
+#trajetoria h3::before {
+    content: "root@pedro:~/carreira$ ";
+}
+
+/* Prompt para Certificações */
+#certificacoes h3::before {
+    content: "root@pedro:~/certificações$ ";
+}
+
+/* Customização da barra de rolagem */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-primary); 
+}
+
+::-webkit-scrollbar-thumb {
+    background: #222; 
+    border: 1px solid var(--accent-green);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-green);
+    box-shadow: 0 0 10px var(--accent-green);
+}
+
+/* Atualize sua classe do botão */
+.btn-download {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    color: var(--accent-green);
+    border: 1px solid var(--accent-green);
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    background: transparent;
+    cursor: pointer;
+    
+    /* Ativa a animação de pulso */
+    animation: pulse-green 2s infinite;
+}
+
+/* Define o comportamento do pulso */
+@keyframes pulse-green {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 255, 65, 0.7);
+    }
+    70% {
+        /* O brilho se expande e perde opacidade */
+        box-shadow: 0 0 0 15px rgba(0, 255, 65, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 255, 65, 0);
+    }
+}
+
+/* Opcional: Pausa o pulso quando o mouse está em cima para facilitar o clique */
+.btn-download:hover {
+    animation: none;
+    background-color: var(--accent-green);
+    color: #000;
+    box-shadow: 0 0 20px var(--accent-green);
+}
+
+/* Container da Grade */
+.skills-grid {
+    display: grid;
+    /* Cria colunas automáticas de no mínimo 150px que se ajustam à tela */
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Estilo de cada item da grade */
+.skill-item {
+    color: var(--dim-green);
+    border: 1px solid #222;    /* Borda mais escura e discreta */
+    background-color: transparent;
+    text-shadow: none;
+}
+
+.skill-item:hover {
+    color: var(--accent-green); /* O brilho volta apenas quando o mouse passa */
+    border-color: var(--accent-green);
+    box-shadow: 0 0 8px rgba(0, 255, 65, 0.2); 
+}
+/* Detalhe estético: Adiciona colchetes automáticos */
+.skill-item::before { content: "[ "; color: var(--accent-green); }
+.skill-item::after { content: " ]"; color: var(--accent-green); }
+
+/* Classe para Defesa e Segurança */
+/* --- CATEGORIA: DEFESA (VERMELHO) --- */
+.skill-defense {
+    color: var(--accent-red) !important;
+    border-color: rgba(255, 49, 49, 0.4);
+}
+.skill-defense:hover {
+    border-color: var(--accent-red); /* Borda fica vermelho sólido no hover */
+    box-shadow: 0 0 15px rgba(255, 49, 49, 0.5);
+    background-color: rgba(255, 49, 49, 0.1);
+    color: var(--accent-red) !important;
+}
+
+/* --- CATEGORIA: SISTEMAS (AZUL) --- */
+.skill-systems {
+    color: var(--accent-blue) !important;
+    border-color: rgba(0, 212, 255, 0.4);
+}
+.skill-systems:hover {
+    border-color: var(--accent-blue); /* Borda fica azul sólido no hover */
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+    background-color: rgba(0, 212, 255, 0.1);
+    color: var(--accent-blue) !important;
+}
+
+/* --- CATEGORIA: HARDWARE/SUPORTE (ÂMBAR) --- */
+.skill-hardware {
+    color: var(--accent-amber) !important;
+    border-color: rgba(255, 189, 89, 0.4);
+}
+.skill-hardware:hover {
+    border-color: var(--accent-amber); /* Borda fica âmbar sólido no hover */
+    box-shadow: 0 0 15px rgba(255, 189, 89, 0.5);
+    background-color: rgba(255, 189, 89, 0.1);
+    color: var(--accent-amber) !important;
+}
+/* Classe para Hardware e Suporte */
+.skill-hardware {
+    border-color: rgba(255, 189, 89, 0.3);
+}
+.skill-hardware:hover {
+    color: var(--accent-amber);
+    border-color: var(--accent-amber);
+    box-shadow: 0 0 10px rgba(255, 189, 89, 0.3);
+}
+.skill-hardware::before, .skill-hardware::after { color: var(--accent-amber); }
+
+/* Colchetes para Defesa (Vermelho) */
+.skill-defense::before, 
+.skill-defense::after {
+    color: var(--accent-red) !important;
+}
+
+/* Colchetes para Sistemas (Azul) */
+.skill-systems::before, 
+.skill-systems::after {
+    color: var(--accent-blue) !important;
+}
+
+/* Colchetes para Hardware e Suporte (Âmbar) */
+.skill-hardware::before, 
+.skill-hardware::after {
+    color: var(--accent-amber) !important;
+}
+
+/* Estilo do Botão Back to Top */
+#backToTop {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: rgba(10, 10, 10, 0.9);
+    color: var(--accent-green); /* Verde idêntico ao H2 */
+    border: 2px solid var(--accent-green);
+    padding: 10px 15px;
+    font-family: 'Fira Code', monospace;
+    font-weight: bold;
+    cursor: pointer;
+    display: none; /* O JS vai ativar quando você rolar a página */
+    z-index: 9999;
+    transition: all 0.3s ease;
+}
+
+#backToTop:hover {
+    background-color: var(--accent-green);
+    color: #000;
+    box-shadow: 0 0 20px var(--accent-green);
+}
