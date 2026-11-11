@@ -1,409 +1,744 @@
-/* style.css */
+/* ==========================================================================
+   Portfólio de Pedro Henrique Ferrante Prado
+   Conceito: relatório de avaliação de segurança. Índice fixo à esquerda,
+   achados com ID e régua de severidade CVSS. Sem fontes nem scripts de terceiros.
+   ========================================================================== */
+
 :root {
-    --accent-green: #00ff41;    /* Verde Neon (para h2 e destaques) */
-    --dim-green: #008f11;       /* Verde Matrix (mais escuro para h3) */
-    /* ... outras variáveis ... */
-    --accent-red: #ff3131;
-    --accent-blue: #00d4ff;
-    --accent-amber: #ffbd59;
-    --accent-purple: #b537f2;
-    --bg-primary: #0a0a0a;
-    --text-main: #e0e0e0;
+  color-scheme: light dark;
 
+  --paper: #f5f7fa;
+  --panel: #ffffff;
+  --ink: #0f1b2d;
+  --ink-2: #2f4058;
+  --muted: #586a80;
+  --rule: #dbe2ea;
+  --rule-strong: #bcc8d5;
+  --accent: #0b6e69;
+  --accent-ink: #ffffff;
+
+  /* Índice lateral (sempre escuro) */
+  --rail: #0f1b2d;
+  --rail-ink: #e8eef5;
+  --rail-muted: #a3b3c6;
+  --rail-accent: #5eead4;
+  --rail-rule: #233449;
+
+  /* Blocos de código (sempre escuros) */
+  --code-bg: #0f1b2d;
+  --code-ink: #dbe6f2;
+  --code-muted: #8fa3ba;
+
+  /* Escala CVSS v3.1 */
+  --sev-low: #79b08f;
+  --sev-med: #e3b13c;
+  --sev-high: #e07b3a;
+  --sev-crit: #c0392b;
+  --alert: #b3261e;
+
+  --radius: 6px;
+  --rail-w: 17rem;
+
+  --sans: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --mono: "Cascadia Code", "Cascadia Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0b121a;
+    --panel: #111a25;
+    --ink: #e8eef5;
+    --ink-2: #c4d0dd;
+    --muted: #97a8bb;
+    --rule: #223142;
+    --rule-strong: #33475d;
+    --accent: #5eead4;
+    --accent-ink: #04201d;
+    --rail: #080e15;
+    --rail-rule: #1b2a3a;
+    --code-bg: #070c12;
+    --alert: #ff8f86;
+  }
+}
+
+/* ---------- Base ---------- */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
-    background-color: var(--bg-primary);
-    color: var(--text-main);
-    font-family: 'Fira Code', 'Courier New', monospace; /* Fontes que parecem código */
-    margin: 0;
-    line-height: 1.6;
-    position: relative; /* Necessário para o posicionamento do efeito */
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 1.0625rem/1.62 var(--sans);
+  text-rendering: optimizeLegibility;
 }
 
-/* Efeito de Scanlines (Linhas de monitor CRT antigo) */
-body::before {
-    content: " ";
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    /* Reduzi a opacidade das linhas de 0.25 para 0.07 e das cores de 0.06 para 0.02 */
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.07) 50%), 
-                linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
-    z-index: 9999;
-    pointer-events: none;
-    background-size: 100% 3px, 2px 100%; /* Linhas um pouco mais finas */
+h1, h2, h3, h4, h5, p, ul, ol, dl, dd, figure { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+
+a {
+  color: var(--accent);
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+}
+a:hover { text-decoration-thickness: 2px; }
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
-header {
-    background-color: var(--bg-secondary);
-    padding: 60px 20px;
-    text-align: center;
-    border-bottom: 2px solid var(--accent-green);
-    /* Efeito de brilho no fundo do cabeçalho */
-    box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+code {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  background: color-mix(in srgb, var(--ink) 7%, transparent);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  overflow-wrap: anywhere;
 }
 
-/* Isso foca apenas no h2 que está dentro do header */
-header h2 {
-    color: var(--accent-green);
-    text-shadow: 0 0 8px var(--accent-green); /* Aqui acontece a mágica */
-    font-weight: normal; /* Deixa a fonte um pouco mais fina para o brilho não "borrar" o texto */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }
 
-h1 {
-    color: var(--accent-green);
-    text-shadow: 0 0 10px var(--accent-green);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    
-    /* Configuração para o efeito de digitação */
-    overflow: hidden; 
-    border-right: 3px solid var(--accent-green); 
-    white-space: nowrap; 
-    
-    /* Faz a largura se ajustar exatamente ao tamanho do seu nome */
-    width: fit-content; 
-    margin: 0 auto; 
-    
-    /* Ativa as animações */
-    animation: 
-        typing 3.5s steps(30, end) forwards,
-        blink-caret 0.75s step-end infinite;
-} /* <-- A chave que faltava fechar */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
+  border-radius: var(--radius);
+}
+.skip-link:focus { top: 1rem; }
 
+/* ---------- Botões ---------- */
 
-section {
-    max-width: 900px;
-    margin: 30px auto;
-    padding: 25px;
-    background-color: var(--bg-secondary);
-    border-radius: 5px;
-    border-left: 3px solid var(--accent-green);
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.5rem 1.15rem;
+  border: 1.5px solid var(--accent);
+  border-radius: var(--radius);
+  font: 600 0.97rem/1.2 var(--sans);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+.btn--solid { background: var(--accent); color: var(--accent-ink); }
+.btn--solid:hover { background: color-mix(in srgb, var(--accent) 85%, var(--ink)); }
+.btn--line { background: transparent; color: var(--accent); }
+.btn--line:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+.btn--rail { background: var(--rail-accent); border-color: var(--rail-accent); color: #04201d; }
+.btn--rail:hover { background: #8df3e3; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+/* ---------- Índice lateral ---------- */
+
+.rail {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: var(--rail-w);
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  padding: 2.5rem 1.5rem 2rem;
+  background: var(--rail);
+  color: var(--rail-ink);
+  overflow-y: auto;
 }
 
-h2 {
-    color: var(--accent-green);
-    font-size: 1.5rem;
-    border-bottom: 1px solid #333;
-    padding-bottom: 10px;
-    
-    /* Configurações para a animação */
-    overflow: hidden;
+.rail__id {
+  display: block;
+  color: var(--rail-ink);
+  text-decoration: none;
+  padding-left: 0.9rem;
+}
+.rail__name { display: block; font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em; }
+.rail__role { display: block; margin-top: 0.2rem; font-size: 0.9rem; line-height: 1.4; color: var(--rail-muted); }
+
+.rail__nav ul { display: flex; flex-direction: column; gap: 0.15rem; }
+
+.nav-link {
+  display: block;
+  padding: 0.5rem 0.9rem;
+  border-left: 2px solid var(--rail-rule);
+  color: var(--rail-muted);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.15s, border-color 0.15s;
+}
+.nav-link:hover { color: var(--rail-ink); }
+.nav-link[aria-current="true"] {
+  color: var(--rail-ink);
+  border-left-color: var(--rail-accent);
+  font-weight: 650;
+}
+
+.rail__links {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-left: 0.9rem;
+}
+.rail__link { color: var(--rail-muted); font-weight: 500; text-decoration: none; }
+.rail__link:hover { color: var(--rail-ink); text-decoration: underline; }
+
+.rail :focus-visible { outline-color: var(--rail-accent); }
+
+/* ---------- Página ---------- */
+
+.main { margin-left: var(--rail-w); }
+
+.page {
+  max-width: 74rem;
+  padding: 5rem 3.5rem 4rem;
+}
+
+.section {
+  max-width: 60rem;
+  margin-top: 5.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--rule-strong);
+}
+
+.section h2 {
+  font-size: 1.9rem;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+.section__intro {
+  margin-top: 0.75rem;
+  max-width: 40rem;
+  color: var(--ink-2);
+}
+
+.measure { max-width: 42rem; color: var(--ink-2); }
+
+/* ---------- Resumo ---------- */
+
+.hero h1 {
+  font-size: clamp(2.5rem, 1.2rem + 4.6vw, 4.4rem);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  font-weight: 750;
+  max-width: 14ch;
+}
+.hero__role {
+  margin-top: 1.25rem;
+  font-size: 1.3rem;
+  line-height: 1.35;
+  font-weight: 600;
+  color: var(--accent);
+  max-width: 40rem;
+}
+.hero__lead {
+  margin-top: 1.25rem;
+  max-width: 40rem;
+  font-size: 1.15rem;
+  color: var(--ink-2);
+}
+.hero .actions { margin-top: 2rem; }
+
+.ficha {
+  margin-top: 3rem;
+  border-top: 1px solid var(--rule-strong);
+}
+.ficha__row {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.ficha dt { color: var(--muted); font-weight: 500; }
+.ficha dd { color: var(--ink); max-width: 40rem; }
+.nobr { white-space: nowrap; }
+
+/* ---------- Projetos ---------- */
+
+h4 {
+  margin-top: 2.25rem;
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+
+.case {
+  margin-top: 2.25rem;
+  padding: 2.25rem;
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+}
+.case h3 {
+  font-size: 1.5rem;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  font-weight: 700;
+  max-width: 34rem;
+}
+.case__meta { margin: 0.4rem 0 1.25rem; color: var(--muted); }
+.case__link { margin-top: 1.75rem; font-weight: 600; }
+
+/* Arquitetura: caminho do tráfego */
+.path {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+.path li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+.path span { color: var(--muted); }
+.path li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 1.5rem;
+  height: 1px;
+  background: var(--rule-strong);
+}
+.path li:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 1.5rem - 7px);
+  width: 6px;
+  height: 6px;
+  border-top: 1px solid var(--muted);
+  border-right: 1px solid var(--muted);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* Achados */
+.findings { margin-top: 0.75rem; border-top: 1px solid var(--rule-strong); }
+.finding {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr) 11.5rem;
+  gap: 1.25rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.finding__id {
+  font: 700 0.95rem/1.5 var(--mono);
+  color: var(--muted);
+}
+.finding h5 { font-size: 1.02rem; line-height: 1.35; font-weight: 650; }
+.finding__body p:not(.vector) { margin-top: 0.35rem; color: var(--ink-2); font-size: 0.97rem; }
+.vector { margin-top: 0.6rem; }
+.vector code { font-size: 0.74rem; background: none; padding: 0; color: var(--muted); overflow-wrap: normal; }
+.finding h5 code { padding: 0.05em 0.2em; white-space: nowrap; }
+
+.score { align-self: start; }
+.score__num { font-size: 2.1rem; line-height: 1; font-weight: 750; letter-spacing: -0.03em; }
+.score__meta { margin-top: 0.7rem; font-size: 0.88rem; line-height: 1.4; color: var(--muted); }
+.prio { color: var(--ink-2); font-weight: 600; }
+.prio--alta { color: var(--alert); }
+
+/* Régua CVSS: o marcador fica na posição da nota */
+.scale {
+  position: relative;
+  height: 0.5rem;
+  margin-top: 0.85rem;
+  border-radius: 99px;
+  background: linear-gradient(
+    90deg,
+    var(--sev-low) 0 39%,
+    var(--sev-med) 39% 69%,
+    var(--sev-high) 69% 89%,
+    var(--sev-crit) 89% 100%
+  );
+}
+.scale::after {
+  content: "";
+  position: absolute;
+  top: -0.3rem;
+  left: calc(var(--s) * 10%);
+  width: 4px;
+  height: 1.1rem;
+  background: var(--ink);
+  border-radius: 2px;
+  box-shadow: 0 0 0 2px var(--panel);
+  transform: translateX(-50%);
+}
+.s43 { --s: 4.3; }
+.s53 { --s: 5.3; }
+.s54 { --s: 5.4; }
+
+.note { margin-top: 0.9rem; font-size: 0.9rem; color: var(--muted); max-width: 42rem; }
+
+.phases {
+  margin-top: 0.75rem;
+  max-width: 42rem;
+  counter-reset: fase;
+  color: var(--ink-2);
+}
+.phases li {
+  position: relative;
+  counter-increment: fase;
+  padding: 0.35rem 0 0.35rem 2rem;
+}
+.phases li::before {
+  content: counter(fase);
+  position: absolute;
+  left: 0;
+  top: 0.35rem;
+  width: 1.35rem;
+  height: 1.35rem;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid var(--accent);
+  border-radius: 50%;
+  font: 700 0.75rem/1 var(--sans);
+  color: var(--accent);
+}
+.phases strong { color: var(--ink); }
+
+.plain { max-width: 42rem; color: var(--ink-2); }
+.plain li {
+  position: relative;
+  padding: 0.25rem 0 0.25rem 1.1rem;
+}
+.plain li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.95em;
+  width: 0.4rem;
+  height: 1px;
+  background: var(--muted);
+}
+.case .plain { margin-top: 0.6rem; }
+
+/* Código */
+.code { margin-top: 1.25rem; max-width: 42rem; }
+.code figcaption { margin-bottom: 0.4rem; font-size: 0.88rem; color: var(--muted); }
+.code pre {
+  margin: 0;
+  padding: 1rem 1.15rem;
+  background: var(--code-bg);
+  color: var(--code-ink);
+  border-radius: var(--radius);
+  overflow-x: auto;
+  font: 0.86rem/1.65 var(--mono);
+}
+.code code { background: none; padding: 0; font-size: inherit; overflow-wrap: normal; }
+
+/* Tarja de omissão, como em relatórios reais */
+.redact {
+  background: #cbd5e1;
+  color: #cbd5e1;
+  border-radius: 2px;
+  user-select: none;
+}
+
+/* Demais projetos */
+.projects { margin-top: 3rem; border-top: 1px solid var(--rule-strong); }
+.project {
+  display: grid;
+  grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+  gap: 1rem 2.5rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.project h3 { font-size: 1.1rem; line-height: 1.3; font-weight: 650; letter-spacing: -0.005em; }
+.project__meta { margin-top: 0.4rem; font-size: 0.92rem; color: var(--muted); }
+.project__body > * + * { margin-top: 0.85rem; }
+.stack { font-size: 0.95rem; color: var(--ink-2); }
+.stack strong { color: var(--ink); }
+
+/* ---------- Competências ---------- */
+
+.matrix {
+  width: 100%;
+  margin-top: 2rem;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+}
+.matrix thead th {
+  padding: 0.6rem 1rem 0.6rem 0;
+  border-bottom: 1px solid var(--rule-strong);
+  text-align: left;
+  font-weight: 600;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.matrix tbody th,
+.matrix td {
+  padding: 1rem 1rem 1rem 0;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+  vertical-align: top;
+}
+.matrix tbody th { width: 11rem; font-weight: 650; }
+.matrix td { color: var(--ink-2); }
+.matrix td:last-child { width: 15rem; padding-right: 0; }
+
+/* ---------- Experiência ---------- */
+
+.timeline { margin-top: 2rem; border-top: 1px solid var(--rule-strong); }
+.job {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: 1.75rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.job__when { color: var(--muted); font-weight: 500; }
+.job h3 { font-size: 1.15rem; line-height: 1.3; font-weight: 700; letter-spacing: -0.01em; }
+.job__org { margin: 0.15rem 0 0.6rem; color: var(--accent); font-weight: 600; }
+
+/* ---------- Formação ---------- */
+
+.degree { margin-top: 2rem; padding-left: 1.25rem; border-left: 3px solid var(--accent); }
+.degree h3 { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.01em; }
+.degree p { margin-top: 0.25rem; color: var(--ink-2); max-width: 36rem; }
+
+.subhead { margin-top: 2.5rem; font-size: 1.02rem; font-weight: 700; }
+
+.ledger { margin-top: 0.75rem; border-top: 1px solid var(--rule-strong); }
+.ledger li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 11rem 6rem;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.ledger__title { font-weight: 550; }
+.ledger__org { color: var(--ink-2); }
+.ledger__when { color: var(--muted); text-align: right; }
+
+/* ---------- Contato ---------- */
+
+.contact { margin-top: 2rem; }
+.contact__mail {
+  margin-bottom: 1.25rem;
+  font-size: clamp(1.35rem, 0.9rem + 1.6vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+
+.footer {
+  max-width: 60rem;
+  margin-top: 6rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+.footer p + p { margin-top: 0.2rem; }
+
+/* ---------- Resumo: painel de triagem ---------- */
+
+.hero__text { min-width: 0; }
+.hero__panel { max-width: 44rem; margin-top: 2.5rem; }
+.hero__panel pre { font-size: 0.82rem; }
+.code .c { color: var(--code-muted); }
+.code .k { color: #7dd3c8; }
+.code .s { color: #f2c879; }
+
+/* ---------- Foco em blue team ---------- */
+
+.duties {
+  margin-top: 2rem;
+  border-top: 1px solid var(--rule-strong);
+}
+.duty {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.duty dt { font-weight: 700; }
+.duty dd { max-width: 42rem; color: var(--ink-2); }
+
+.attack {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+.attack li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px dashed var(--rule-strong);
+  border-radius: var(--radius);
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.35;
+}
+.attack strong { font-size: 0.92rem; font-weight: 650; }
+.attack li.is-covered {
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent);
+  color: var(--ink-2);
+}
+.attack li.is-covered strong { color: var(--ink); }
+.attack code { font-size: 0.92em; }
+
+/* ---------- Telas médias e pequenas ---------- */
+
+@media (max-width: 1100px) {
+  .main { margin-left: 0; }
+
+  .rail {
+    position: sticky;
+    inset: 0 auto auto 0;
+    z-index: 50;
+    width: auto;
+    gap: 0.35rem;
+    padding: 0.7rem 1rem 0;
+    overflow: visible;
+  }
+  .rail__id { padding-left: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.1rem 0.75rem; }
+  .rail__name { font-size: 1rem; }
+  .rail__role { margin-top: 0; font-size: 0.85rem; }
+  .rail__links { display: none; }
+
+  .rail__nav { margin: 0 -1rem; }
+  .rail__nav ul {
+    flex-direction: row;
+    gap: 0;
+    overflow-x: auto;
+    padding: 0 1rem;
+    scrollbar-width: none;
+  }
+  .rail__nav ul::-webkit-scrollbar { display: none; }
+  .nav-link {
     white-space: nowrap;
-    border-right: 3px solid transparent; /* Cursor invisível até começar */
-    width: 0; /* Começa escondido */
-    margin-bottom: 20px;
+    padding: 0.7rem 0.85rem;
+    border-left: 0;
+    border-bottom: 2px solid transparent;
+  }
+  .nav-link[aria-current="true"] { border-bottom-color: var(--rail-accent); }
+
+  .page { padding: 3rem 1.5rem 3rem; }
+  html { scroll-padding-top: 6.5rem; }
 }
 
-/* Esta classe será adicionada pelo JavaScript quando o H2 aparecer na tela */
-/* Atualize o estado final do h1 e h2 */
-h1, h2.typing-active {
-    /* ... outras propriedades ... */
-    border-right: 3px solid var(--accent-green); /* Define a cor sólida como padrão final */
-    
-    animation: 
-        typing 2s steps(25, end) forwards,
-        blink-caret 0.5s step-end 1 forwards; /* Pisca 1 vez e mantém o estado final (forwards) */
-}
+@media (max-width: 860px) {
+  .path { grid-template-columns: 1fr; gap: 1.25rem; }
+  .path li:not(:last-child)::after {
+    top: 100%;
+    left: 1.5rem;
+    width: 1px;
+    height: 1.25rem;
+  }
+  .path li:not(:last-child)::before {
+    top: calc(100% + 1.25rem - 6px);
+    left: 1.5rem;
+    transform: translateX(-50%) rotate(135deg);
+  }
 
-/* Ajuste o Keyframe para garantir que termine visível */
-@keyframes blink-caret {
-    from { border-color: transparent; }
-    to { border-color: var(--accent-green); }
-}
+  .finding { grid-template-columns: 2rem minmax(0, 1fr); }
+  .score { grid-column: 2; max-width: 14rem; }
 
-/* Unifica a cor de todos os H3 para o verde principal */
-h3 {
-    color: var(--dim-green);
-    text-shadow: none;         /* Garante que não haja brilho no texto */
-    box-shadow: none;           /* Remove sombras de caixa, se houver */
-    margin-top: 15px;
+  .project { grid-template-columns: 1fr; }
+  .job { grid-template-columns: 1fr; gap: 0.25rem; }
+  .ficha__row { grid-template-columns: 1fr; gap: 0.15rem; }
+  .duty { grid-template-columns: 1fr; gap: 0.25rem; }
+
+  .ledger li { grid-template-columns: 1fr auto; gap: 0.1rem 1rem; }
+  .ledger__title { grid-column: 1 / -1; }
+  .ledger__when { text-align: right; }
+
+  .matrix thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .matrix, .matrix tbody, .matrix tr, .matrix th, .matrix td { display: block; width: auto; }
+  .matrix tbody tr { padding: 1rem 0; border-bottom: 1px solid var(--rule); }
+  .matrix tbody th, .matrix td { padding: 0; border: 0; width: auto; }
+  .matrix td { margin-top: 0.4rem; }
+  .matrix td:last-child { width: auto; }
+  .matrix td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 0.82rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;      /* Reduzi um pouco para ficar mais discreto */
+    color: var(--muted);
+  }
 }
 
-/* Garante que o efeito de terminal do H3 também acompanhe a cor mais escura */
-section h3::before {
-    color: #444;                /* Um cinza ainda mais discreto para o prompt */
-    text-shadow: none;
+@media (max-width: 560px) {
+  .hero__panel pre { font-size: 0.74rem; }
+  .case { padding: 1.25rem; }
+  .section { margin-top: 4rem; }
+  .actions .btn { flex: 1 1 100%; }
 }
 
-/* Estilizando os itens da lista como se fossem comandos de terminal */
-ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-ul li::before {
-    content: "> ";
-    color: var(--accent-green);
-    font-weight: bold;
-}
-
-a {
-    color: var(--accent-green);
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-a:hover {
-    background-color: var(--accent-green);
-    color: var(--bg-primary);
-    padding: 2px 5px;
-    border-radius: 3px;
-}
-
-footer {
-    text-align: center;
-    padding: 40px;
-    font-size: 0.9rem;
-    color: #555;
-}
-
-/* Estilo base do card */
-section div {
-    background-color: #111; /* Um pouco mais claro que o fundo principal */
-    padding: 20px;
-    margin-bottom: 15px;
-    border: 1px solid #333;
-    border-radius: 8px;
-    transition: all 0.3s ease; /* A "mágica" para o efeito ser suave */
-    cursor: default;
-}
-
-/* O efeito de Interatividade (Hover) */
-section div:hover {
-    transform: translateY(-5px); /* Faz o card "subir" levemente */
-    border-color: var(--accent-green); /* A borda fica verde */
-    box-shadow: 0 5px 15px rgba(0, 255, 65, 0.2); /* Brilho sutil em volta do card */
-}
-
-a {
-    color: var(--accent-green);
-    text-decoration: none;
-    padding: 2px 5px;
-    border: 1px solid transparent;
-    transition: 0.3s;
-}
-
-a:hover {
-    background-color: var(--accent-green);
-    color: #000; /* Texto fica preto para contrastar com o fundo verde */
-    border-radius: 4px;
-}
-/* Animação que aumenta a largura do texto de 0 até o final */
-@keyframes typing {
-    from { width: 0 }
-    to { width: 100% }
-}
-
-/* Animação que faz a borda (cursor) aparecer e sumir */
-@keyframes blink-caret {
-    from, to { border-color: transparent }
-    50% { border-color: var(--accent-green) }
-}
-
-/* Estilo BASE para todos os prompts (cor, fonte, etc) */
-section h3::before {
-    color: #555;
-    font-size: 0.9rem;
-    font-weight: normal;
-}
-
-/* Prompt para Habilidades */
-#habilidades h3::before {
-    content: "root@pedro:~/habilidades$ ";
-}
-
-/* Prompt para Projetos */
-#projetos h3::before {
-    content: "root@pedro:~/projetos$ ";
-}
-
-/* Prompt para Trajetória (Carreira) */
-#trajetoria h3::before {
-    content: "root@pedro:~/carreira$ ";
-}
-
-/* Prompt para Certificações */
-#certificacoes h3::before {
-    content: "root@pedro:~/certificações$ ";
-}
-
-/* Customização da barra de rolagem */
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--bg-primary); 
-}
-
-::-webkit-scrollbar-thumb {
-    background: #222; 
-    border: 1px solid var(--accent-green);
-    border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--accent-green);
-    box-shadow: 0 0 10px var(--accent-green);
-}
-
-/* Atualize sua classe do botão */
-.btn-download {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    color: var(--accent-green);
-    border: 1px solid var(--accent-green);
-    text-decoration: none;
-    font-weight: bold;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-    background: transparent;
-    cursor: pointer;
-    
-    /* Ativa a animação de pulso */
-    animation: pulse-green 2s infinite;
-}
-
-/* Define o comportamento do pulso */
-@keyframes pulse-green {
-    0% {
-        box-shadow: 0 0 0 0 rgba(0, 255, 65, 0.7);
-    }
-    70% {
-        /* O brilho se expande e perde opacidade */
-        box-shadow: 0 0 0 15px rgba(0, 255, 65, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(0, 255, 65, 0);
-    }
-}
-
-/* Opcional: Pausa o pulso quando o mouse está em cima para facilitar o clique */
-.btn-download:hover {
-    animation: none;
-    background-color: var(--accent-green);
-    color: #000;
-    box-shadow: 0 0 20px var(--accent-green);
-}
-
-/* Container da Grade */
-.skills-grid {
+@media (min-width: 1400px) {
+  .hero {
     display: grid;
-    /* Cria colunas automáticas de no mínimo 150px que se ajustam à tela */
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 15px;
-    margin-top: 20px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 27rem);
+    gap: 0 3.5rem;
+    align-items: start;
+  }
+  .hero__panel { margin-top: 1.1rem; }
+  .ficha { grid-column: 1 / -1; }
 }
 
-/* Estilo de cada item da grade */
-.skill-item {
-    color: var(--dim-green);
-    border: 1px solid #222;    /* Borda mais escura e discreta */
-    background-color: transparent;
-    text-shadow: none;
+/* ---------- Movimento reduzido ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
 }
 
-.skill-item:hover {
-    color: var(--accent-green); /* O brilho volta apenas quando o mouse passa */
-    border-color: var(--accent-green);
-    box-shadow: 0 0 8px rgba(0, 255, 65, 0.2); 
-}
-/* Detalhe estético: Adiciona colchetes automáticos */
-.skill-item::before { content: "[ "; color: var(--accent-green); }
-.skill-item::after { content: " ]"; color: var(--accent-green); }
+/* ---------- Impressão (recrutadores imprimem) ---------- */
 
-/* Classe para Defesa e Segurança */
-/* --- CATEGORIA: DEFESA (VERMELHO) --- */
-.skill-defense {
-    color: var(--accent-red) !important;
-    border-color: rgba(255, 49, 49, 0.4);
-}
-.skill-defense:hover {
-    border-color: var(--accent-red); /* Borda fica vermelho sólido no hover */
-    box-shadow: 0 0 15px rgba(255, 49, 49, 0.5);
-    background-color: rgba(255, 49, 49, 0.1);
-    color: var(--accent-red) !important;
-}
-
-/* --- CATEGORIA: SISTEMAS (AZUL) --- */
-.skill-systems {
-    color: var(--accent-blue) !important;
-    border-color: rgba(0, 212, 255, 0.4);
-}
-.skill-systems:hover {
-    border-color: var(--accent-blue); /* Borda fica azul sólido no hover */
-    box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
-    background-color: rgba(0, 212, 255, 0.1);
-    color: var(--accent-blue) !important;
-}
-
-/* --- CATEGORIA: HARDWARE/SUPORTE (ÂMBAR) --- */
-.skill-hardware {
-    color: var(--accent-amber) !important;
-    border-color: rgba(255, 189, 89, 0.4);
-}
-.skill-hardware:hover {
-    border-color: var(--accent-amber); /* Borda fica âmbar sólido no hover */
-    box-shadow: 0 0 15px rgba(255, 189, 89, 0.5);
-    background-color: rgba(255, 189, 89, 0.1);
-    color: var(--accent-amber) !important;
-}
-/* Classe para Hardware e Suporte */
-.skill-hardware {
-    border-color: rgba(255, 189, 89, 0.3);
-}
-.skill-hardware:hover {
-    color: var(--accent-amber);
-    border-color: var(--accent-amber);
-    box-shadow: 0 0 10px rgba(255, 189, 89, 0.3);
-}
-.skill-hardware::before, .skill-hardware::after { color: var(--accent-amber); }
-
-/* Colchetes para Defesa (Vermelho) */
-.skill-defense::before, 
-.skill-defense::after {
-    color: var(--accent-red) !important;
-}
-
-/* Colchetes para Sistemas (Azul) */
-.skill-systems::before, 
-.skill-systems::after {
-    color: var(--accent-blue) !important;
-}
-
-/* Colchetes para Hardware e Suporte (Âmbar) */
-.skill-hardware::before, 
-.skill-hardware::after {
-    color: var(--accent-amber) !important;
-}
-
-/* Estilo do Botão Back to Top */
-#backToTop {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background-color: rgba(10, 10, 10, 0.9);
-    color: var(--accent-green); /* Verde idêntico ao H2 */
-    border: 2px solid var(--accent-green);
-    padding: 10px 15px;
-    font-family: 'Fira Code', monospace;
-    font-weight: bold;
-    cursor: pointer;
-    display: none; /* O JS vai ativar quando você rolar a página */
-    z-index: 9999;
-    transition: all 0.3s ease;
-}
-
-#backToTop:hover {
-    background-color: var(--accent-green);
-    color: #000;
-    box-shadow: 0 0 20px var(--accent-green);
+@media print {
+  :root {
+    --paper: #fff; --panel: #fff; --ink: #000; --ink-2: #222; --muted: #444;
+    --rule: #ccc; --rule-strong: #999; --accent: #064e4a;
+  }
+  .rail, .skip-link, #copy-email, .actions, .hero .actions { display: none !important; }
+  .main { margin: 0; }
+  .page { max-width: none; padding: 0; }
+  .section { margin-top: 2rem; break-inside: auto; }
+  .case, .project, .job, .finding { break-inside: avoid; }
+  .case { border: 0; padding: 0; }
+  a { color: #000; }
+  .contact a[href^="http"]::after,
+  .project a[href^="http"]::after,
+  .case a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.8em; word-break: break-all; }
+  .code pre { background: #f3f3f3; color: #000; border: 1px solid #ccc; }
+  .redact { background: #000; color: #000; }
 }

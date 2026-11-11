@@ -1,195 +1,557 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-    <meta charset="UTF-8">
-    <!-- Essa linha garante que o site se ajuste ao tamanho da tela (celular/tablet) -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfólio | Pedro Henrique Ferrante Prado</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>Pedro Henrique Ferrante Prado | Analista de Sistemas e Blue Team</title>
+  <meta name="description" content="Portfólio técnico de Pedro Henrique Ferrante Prado, Analista de Sistemas e graduando em Defesa Cibernética na FIAP, com foco em blue team: detecção, análise de logs e tráfego, forense digital e threat intelligence. Mais de 50 CTFs documentados e avaliação de segurança web com CVSS v3.1.">
+  <meta name="author" content="Pedro Henrique Ferrante Prado">
+  <meta name="theme-color" content="#0f1b2d">
+  <link rel="canonical" href="https://ferranteabc.github.io/meu-portfolio/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Pedro Henrique Ferrante Prado | Analista de Sistemas e Blue Team">
+  <meta property="og:description" content="Foco em blue team: detecção, forense e threat intelligence. Mais de 50 CTFs documentados, mapa MITRE ATT&amp;CK e avaliação de segurança web com CVSS v3.1.">
+  <meta property="og:url" content="https://ferranteabc.github.io/meu-portfolio/">
+  <meta property="og:image" content="https://ferranteabc.github.io/meu-portfolio/android-chrome-512x512.png">
+  <meta name="twitter:card" content="summary">
+
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="stylesheet" href="style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Pedro Henrique Ferrante Prado",
+    "jobTitle": "Analista de Sistemas",
+    "url": "https://ferranteabc.github.io/meu-portfolio/",
+    "sameAs": [
+      "https://github.com/FerranteAbc",
+      "https://www.linkedin.com/in/pedro-henrique-ferrante-prado-128123230/"
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Santo André",
+      "addressRegion": "SP",
+      "addressCountry": "BR"
+    },
+    "knowsAbout": ["Blue team", "Forense digital", "Threat intelligence", "MITRE ATT&CK", "Análise de logs", "Análise de vulnerabilidades", "Active Directory", "Redes TCP/IP"]
+  }
+  </script>
 </head>
 <body>
-   <header>
-    <h1>Pedro Henrique Ferrante Prado</h1>
-    <h2>Estudante de Defesa Cibernética | Analista de Sistemas | Suporte Técnico</h2>
-    
-    <!-- Novo botão de download -->
-    <a href="Curriculo Pedro Henrique Ferrante Prado (1).pdf" download="Curriculo_Pedro_Prado" class="btn-download">
-        [ DOWNLOAD CV.PDF ]
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+  <header class="rail">
+    <a class="rail__id" href="#resumo">
+      <span class="rail__name">Pedro H. F. Prado</span>
+      <span class="rail__role">Analista de Sistemas, foco em blue team</span>
     </a>
-</header>
-    <section id="sobre-mim">
-        <h2>Sobre Mim</h2>
-        <p>Sou um profissional com foco na resolução de problemas, atendimento ao cliente e suporte técnico. Atualmente, aprofundo meus conhecimentos em segurança da informação, redes e administração de sistemas para garantir a integridade de infraestruturas tecnológicas, focando sempre em agilidade e automatização de processos.</p>
-    </section>
-    
-    <!-- ID definido para: root@pedro:~/habilidades$ -->
-   <section id="habilidades">
-    <h2>Habilidades Técnicas</h2>
-   <div class="skills-grid">
-    <!-- Itens que aparecerão em VERMELHO (Defesa) -->
-    <div class="skill-item skill-defense">Pentest Black Box</div>
-    <div class="skill-item skill-defense">Análise de Vulnerabilidades</div>
-    
-    <!-- Itens que aparecerão em AZUL (Sistemas) -->
-    <div class="skill-item skill-systems">Active Directory (AD)</div>
-    <div class="skill-item skill-systems">Gestão de Servidores</div>
-    
-    <!-- Itens que aparecerão em ÂMBAR (Hardware) -->
-    <div class="skill-item skill-hardware">Manutenção de Hardware</div>
-    <div class="skill-item skill-hardware">Suporte Técnico</div>
-</div>
-</section>
 
-    <!-- ID definido para: root@pedro:~/projetos$ -->
-    <section id="projetos">
-        <h2>Projetos</h2>
-        <div>
-            <h3>Laboratório de Pentesting</h3>
-            <p>Configuração de ambiente controlado usando máquinas virtuais e utilização do Metasploitable para testes de vulnerabilidades e análise de tráfego de rede.</p>
-        </div>
-        <div>
-            <h3>Verificação de vulnerabilidades em Ambiente Homologado</h3>
-            <p>Projeto feito em conjunto com a faculdade para verificar vulnerabilidades em um ambiente homologado seguindo a abordagem Black Box do sistema.</p>
-        </div>
-        <div>
-            <h3>Automação de Suporte Técnico</h3>
-            <p>Criação de scripts para otimização de processos de manutenção e suporte a usuários finais.</p>
-        </div>
-    </section>
+    <nav class="rail__nav" aria-label="Seções do portfólio">
+      <ul>
+        <li><a class="nav-link" href="#resumo">Resumo</a></li>
+        <li><a class="nav-link" href="#blue-team">Blue team</a></li>
+        <li><a class="nav-link" href="#projetos">Projetos</a></li>
+        <li><a class="nav-link" href="#competencias">Competências</a></li>
+        <li><a class="nav-link" href="#experiencia">Experiência</a></li>
+        <li><a class="nav-link" href="#formacao">Formação</a></li>
+        <li><a class="nav-link" href="#contato">Contato</a></li>
+      </ul>
+    </nav>
 
-    <!-- ID definido para: root@pedro:~/carreira$ -->
-    <section id="trajetoria">
-        <h2>Trajetória profissional</h2>
-        <div>
-            <h3>Rk Solutions</h3>
-            <p>Jun 2024 - Presente</p>
-            <h4>Analista de Sistemas</h4>
-            <p>Atuação no atendimento ao cliente, prestando suporte técnico em Sistemas de Automação Comercial.</p>
-        </div>
-        <div>
-            <h3>Moveleiros</h3>
-            <p>Mar 2024 - Jun 2024</p>
-            <h4>Trainee de TI</h4>
-            <p>Atuação em atividades de Hardware e suporte aos colaboradores da empresa, atuando no gerenciamento de logins no Active Directory, Monitoramento de Servidores e Organização no setor de TI da empresa.</p>
-        </div>
-        <div>
-            <h3>Dis'k Agua</h3>
-            <p>Out 2023 - Mar 2024</p>
-            <h4>Assistente Administrativo</h4>
-            <p>Auxiliar de faturamento, organização de documentos, recebimento e conferência de pedidos, acompanhamento de posição e movimentação de estoque, atendimento ao cliente via telefone.</p>
-        </div>
-        <div>
-            <h3>Grupo Guardian</h3>
-            <p>Mar 2022 - Jun 2023</p>
-            <h4>Jovem Aprendiz</h4>
-            <p>Manutenção de Hardwares, suporte em softwares e aos colaboradores da empresa, atendimento ao cliente físico e via telefone, configuração de dispositivos de controle de acesso como dispositivos faciais e digitais.</p>
-        </div>
-    </section>
+    <div class="rail__links">
+      <a class="btn btn--rail" href="Curriculo-Pedro-Henrique-Ferrante-Prado.pdf" download>Baixar currículo (PDF)</a>
+      <a class="rail__link" href="https://github.com/FerranteAbc" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a class="rail__link" href="https://www.linkedin.com/in/pedro-henrique-ferrante-prado-128123230/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </div>
+  </header>
 
-    <!-- ID definido para: root@pedro:~/certificações$ -->
-    <section id="certificacoes">
-        <h2>Formação e certificações</h2>
-        <div>
-            <h3>Defesa Cibernética</h3>
-            <h4>FIAP</h4>
-            <p>Graduação (2025-2027)</p>
-        </div>
-        <div>
-            <h3>Cibersegurança: Fundamentos e práticas integradas</h3>
-            <h4>ALURA - Abr 2026</h4>
-        </div>
-         <div>
-            <h3>Cybersecurity Hacker Skills</h3>
-            <h4>FIAP - Jan 2026</h4>
-        </div>
-        <div>
-            <h3>Qualificação Profissional em Cibersegurança</h3>
-            <h4>FIAP - Dez 2025</h4>
-        </div>
-        <div>
-            <h3>Santander - Cibersegurança 2025</h3>
-            <h4>DIO / Santander - Nov 2025</h4>
-        </div>
-        <div>
-            <h3>Introdução ao Pentest na Prática</h3>
-            <h4>Desec Security - Jun 2025</h4>
-        </div>
-    </section>
+  <main id="conteudo" class="main">
+    <div class="page">
 
-    <section id="competencias">
-        <h2>Competências</h2>
-        <ul>
-            <li>Infraestrutura de redes e segurança</li>
-            <li>Identificação, autenticação e autorização</li>
-            <li>Análise de vulnerabilidades</li>
-            <li>Teste de software</li>
-            <li>Pentest</li>
-            <li>Hardware e Software</li>
-            <li>Atendimento ao Cliente</li>
+      <!-- RESUMO -->
+      <section id="resumo" class="hero" aria-labelledby="titulo-resumo">
+        <div class="hero__text">
+          <h1 id="titulo-resumo">Pedro Henrique Ferrante Prado</h1>
+          <p class="hero__role">Analista de Sistemas em formação em Defesa Cibernética, com foco em blue team</p>
+          <p class="hero__lead">Atuo em suporte e infraestrutura de TI desde 2022 e estudo Defesa Cibernética na FIAP. Meu foco é blue team: detecção, análise de logs e de tráfego, forense e resposta a incidentes, com base ofensiva em pentest. Tudo está documentado em repositórios públicos: mais de 50 desafios de CTF e uma avaliação de segurança web com achados em CVSS v3.1.</p>
+
+          <div class="actions">
+            <a class="btn btn--solid" href="Curriculo-Pedro-Henrique-Ferrante-Prado.pdf" download>Baixar currículo (PDF)</a>
+            <a class="btn btn--line" href="#blue-team">Ver foco em blue team</a>
+            <a class="btn btn--line" href="#projetos">Ver projetos</a>
+          </div>
+        </div>
+
+        <figure class="code hero__panel">
+          <figcaption>Triagem de logs e tráfego: comandos dos meus write-ups</figcaption>
+<pre><code><span class="c"># Força bruta SSH: IPs com mais falhas de login</span>
+<span class="k">grep</span> <span class="s">"Failed password"</span> /var/log/auth.log \
+  | <span class="k">awk</span> <span class="s">'{print $(NF-3)}'</span> \
+  | <span class="k">sort</span> | <span class="k">uniq</span> -c | <span class="k">sort</span> -nr
+
+<span class="c"># Ataques web em log de acesso do Apache</span>
+<span class="k">grep</span> -E <span class="s">"(union|select|&lt;script&gt;|/etc/passwd)"</span> \
+  /var/log/apache2/access.log
+
+<span class="c"># Exfiltração por DNS: consultas únicas no pcap</span>
+<span class="k">tshark</span> -r captura_exfiltracao.pcap \
+  -Y <span class="s">"dns.flags.response == 0"</span> \
+  -T fields -e dns.qry.name | <span class="k">sort</span> -u</code></pre>
+        </figure>
+
+        <dl class="ficha">
+          <div class="ficha__row">
+            <dt>Posição atual</dt>
+            <dd>Analista de Sistemas na RK Solutions Automação Comercial, desde jun/2024</dd>
+          </div>
+          <div class="ficha__row">
+            <dt>Formação</dt>
+            <dd>Graduação em Defesa Cibernética na FIAP, de ago/2025 a ago/2027 (previsão)</dd>
+          </div>
+          <div class="ficha__row">
+            <dt>Foco</dt>
+            <dd>Blue team: detecção, análise de logs e de tráfego, forense digital, threat intelligence e hardening</dd>
+          </div>
+          <div class="ficha__row">
+            <dt>Base ofensiva</dt>
+            <dd>Pentest black box, enumeração, exploração controlada e CTFs</dd>
+          </div>
+          <div class="ficha__row">
+            <dt>Base técnica</dt>
+            <dd>Windows, Linux, Active Directory, redes TCP/IP, PostgreSQL e Firebird</dd>
+          </div>
+          <div class="ficha__row">
+            <dt>Busco</dt>
+            <dd>Oportunidades em cybersecurity e segurança da informação, com foco em blue team</dd>
+          </div>
+          <div class="ficha__row">
+            <dt>Local</dt>
+            <dd>Santo André, SP</dd>
+          </div>
+        </dl>
+      </section>
+
+      <!-- BLUE TEAM -->
+      <section id="blue-team" class="section" aria-labelledby="titulo-blue-team">
+        <h2 id="titulo-blue-team">Foco em blue team</h2>
+        <p class="section__intro">Uso o que aprendi atacando para detectar, analisar e conter. Esta é a parte do meu trabalho que já está documentada do lado da defesa.</p>
+
+        <dl class="duties">
+          <div class="duty">
+            <dt>Detecção</dt>
+            <dd>Triagem de logs de autenticação, de acesso web e de eventos do Windows (<code>.evtx</code>) para achar força bruta, varreduras automatizadas e movimentação lateral. Snort e Suricata em laboratório.</dd>
+          </div>
+          <div class="duty">
+            <dt>Análise e forense</dt>
+            <dd>Inspeção profunda de pacotes (DPI) com Wireshark e tshark para achar exfiltração por DNS e HTTP POST, comunicação com C2 e Evil Twin em 802.11. Perícia de e-mail (cabeçalhos SMTP, SPF, DKIM e DMARC) e de arquivos (metadados, PDF, firmware).</dd>
+          </div>
+          <div class="duty">
+            <dt>Threat intelligence</dt>
+            <dd>Classificação de IoCs até chegar às TTPs (Pirâmide da Dor), mapeamento de comandos do atacante para a matriz MITRE ATT&amp;CK e leitura de intrusões pela Cyber Kill Chain. OSINT passivo.</dd>
+          </div>
+          <div class="duty">
+            <dt>Contenção e hardening</dt>
+            <dd>No FIAP Challenge, cada achado saiu com prioridade, correção (hotfix e definitiva) e critério de reteste. Exemplos: ACL no HAProxy, <code>HttpOnly</code> no cookie de sessão, cabeçalhos de segurança e métricas só em loopback.</dd>
+          </div>
+        </dl>
+
+        <h3 class="subhead">Táticas MITRE ATT&amp;CK com write-up público: 10 de 14</h3>
+        <ul class="attack">
+          <li class="is-covered"><strong>Reconhecimento</strong><span>OSINT passivo, registros DNS e varredura com Nmap</span><span class="sr-only">Com write-up.</span></li>
+          <li><strong>Desenvolvimento de recursos</strong><span class="sr-only">Sem write-up ainda.</span></li>
+          <li class="is-covered"><strong>Acesso inicial</strong><span>Phishing: cabeçalhos SMTP, SPF, DKIM e DMARC</span><span class="sr-only">Com write-up.</span></li>
+          <li class="is-covered"><strong>Execução</strong><span>T1059, interpretadores de comando e scripts</span><span class="sr-only">Com write-up.</span></li>
+          <li class="is-covered"><strong>Persistência</strong><span>T1053, scripts de boot e listeners ocultos</span><span class="sr-only">Com write-up.</span></li>
+          <li><strong>Escalonamento de privilégios</strong><span class="sr-only">Sem write-up ainda.</span></li>
+          <li class="is-covered"><strong>Evasão de defesa</strong><span>Desofuscação de Base64, hex e ruído injetado</span><span class="sr-only">Com write-up.</span></li>
+          <li class="is-covered"><strong>Acesso a credenciais</strong><span>Força bruta SSH em <code>auth.log</code> e hashes quebrados em laboratório</span><span class="sr-only">Com write-up.</span></li>
+          <li class="is-covered"><strong>Descoberta</strong><span>T1087, enumeração de contas e de serviços</span><span class="sr-only">Com write-up.</span></li>
+          <li class="is-covered"><strong>Movimento lateral</strong><span>SMB, WinRM e RDP em logs <code>.evtx</code></span><span class="sr-only">Com write-up.</span></li>
+          <li><strong>Coleta</strong><span class="sr-only">Sem write-up ainda.</span></li>
+          <li class="is-covered"><strong>Comando e controle</strong><span>HTTP POST para servidor C2 em pcap</span><span class="sr-only">Com write-up.</span></li>
+          <li class="is-covered"><strong>Exfiltração</strong><span>Tunelamento DNS e HTTP POST</span><span class="sr-only">Com write-up.</span></li>
+          <li><strong>Impacto</strong><span class="sr-only">Sem write-up ainda.</span></li>
         </ul>
-    </section>
+        <p class="note">Destacadas: táticas com write-up no GitHub. As técnicas citadas por ID são T1059, T1053 e T1087. Tracejadas: ainda sem write-up.</p>
+      </section>
 
-    <section id="contato">
-        <h2>Contato</h2>
-        <p>Sinta-se à vontade para entrar em contato comigo através dos canais abaixo:</p>
-        <ul>
-            <li>Email: <a href="mailto:ph84662@gmail.com">ph84662@gmail.com</a></li>
-            <li>LinkedIn: <a href="https://www.linkedin.com/in/pedro-henrique-ferrante-prado-128123230/" target="_blank">LinkedIn Profissional</a></li>
-            <li>GitHub: <a href="https://github.com/FerranteAbc" target="_blank">GitHub</a></li>
+      <!-- PROJETOS -->
+      <section id="projetos" class="section" aria-labelledby="titulo-projetos">
+        <h2 id="titulo-projetos">Projetos</h2>
+        <p class="section__intro">Fiz todos os testes em laboratório próprio, em ambiente de homologação da faculdade ou em plataformas de CTF. Cada projeto tem repositório público com comandos, evidências e write-ups. Os mais ligados à defesa vêm primeiro.</p>
+
+        <article class="case" aria-labelledby="case-titulo">
+          <h3 id="case-titulo">Avaliação de segurança de uma aplicação web em homologação</h3>
+          <p class="case__meta">FIAP Challenge 2026, em dupla com Bruno Henrique Veiga Sabino</p>
+          <p class="measure">Mapeamos a superfície de ataque de um ERP web em Java sem comprometer a disponibilidade: Nmap com <code>--max-rate 10</code> e Dirsearch com 5 threads. O servidor responde 200 para páginas inexistentes (soft 404), o que gerou falsos positivos no Gobuster. Por isso validamos cada rota manualmente antes de reportar.</p>
+
+          <h4>Arquitetura identificada por fingerprinting</h4>
+          <ol class="path">
+            <li><strong>HAProxy 2.0+</strong><span>Proxy reverso na borda, portas 80 e 443</span></li>
+            <li><strong>Apache Tomcat 9.0.93</strong><span>JVM OpenJDK 21.0.1</span></li>
+            <li><strong>Java EE com JSF</strong><span>Rotas <code>.jsf</code> e ciclo de sessão</span></li>
+            <li><strong>PrimeFaces</strong><span>Camada de interface, tema Sentinel</span></li>
+          </ol>
+
+          <h4>Achados e classificação</h4>
+          <ul class="findings">
+            <li class="finding">
+              <p class="finding__id">F1</p>
+              <div class="finding__body">
+                <h5>Endpoint <code>/metrics/</code> exposto sem autenticação</h5>
+                <p>Responde 200 para qualquer origem e revela versões do Tomcat e da JVM, os contextos internos da aplicação e o número de sessões ativas. Isso facilita o mapeamento da superfície de ataque.</p>
+                <p class="vector"><code>CVSS:3.1/<wbr>AV:N/<wbr>AC:L/<wbr>PR:N/<wbr>UI:N/<wbr>S:U/<wbr>C:L/<wbr>I:N/<wbr>A:N</code></p>
+              </div>
+              <div class="score s53">
+                <p class="score__num">5.3</p>
+                <div class="scale" role="img" aria-label="Nota 5,3 na escala CVSS de 0 a 10, faixa média"></div>
+                <p class="score__meta">Severidade média<br><span class="prio prio--alta">Prioridade alta</span></p>
+              </div>
+            </li>
+            <li class="finding">
+              <p class="finding__id">F2</p>
+              <div class="finding__body">
+                <h5>Token de sessão na URL (<code>?pcaes=</code>)</h5>
+                <p>O identificador de sessão ou transação trafega em requisição GET. Ele fica registrado em logs de proxies e servidores e no histórico do navegador.</p>
+                <p class="vector"><code>CVSS:3.1/<wbr>AV:N/<wbr>AC:L/<wbr>PR:N/<wbr>UI:R/<wbr>S:U/<wbr>C:L/<wbr>I:L/<wbr>A:N</code></p>
+              </div>
+              <div class="score s54">
+                <p class="score__num">5.4</p>
+                <div class="scale" role="img" aria-label="Nota 5,4 na escala CVSS de 0 a 10, faixa média"></div>
+                <p class="score__meta">Severidade média<br><span class="prio prio--alta">Prioridade alta</span></p>
+              </div>
+            </li>
+            <li class="finding">
+              <p class="finding__id">F3</p>
+              <div class="finding__body">
+                <h5>Cookie de sessão sem <code>HttpOnly</code> (<code>ETSS</code>)</h5>
+                <p>O cookie tem a flag <code>Secure</code>, mas não <code>HttpOnly</code>. Havendo um XSS, o script lê o token por <code>document.cookie</code> e sequestra a sessão.</p>
+                <p class="vector"><code>CVSS:3.1/<wbr>AV:N/<wbr>AC:H/<wbr>PR:N/<wbr>UI:R/<wbr>S:U/<wbr>C:H/<wbr>I:N/<wbr>A:N</code></p>
+              </div>
+              <div class="score s53">
+                <p class="score__num">5.3</p>
+                <div class="scale" role="img" aria-label="Nota 5,3 na escala CVSS de 0 a 10, faixa média"></div>
+                <p class="score__meta">Severidade média<br><span class="prio">Prioridade média</span></p>
+              </div>
+            </li>
+            <li class="finding">
+              <p class="finding__id">F4</p>
+              <div class="finding__body">
+                <h5>Cabeçalhos de segurança ausentes</h5>
+                <p>Sem <code>X-Frame-Options</code>, as páginas podem ser embutidas em iframe (clickjacking). Sem <code>X-Content-Type-Options</code>, o navegador pode interpretar tipos MIME de forma indevida.</p>
+                <p class="vector"><code>CVSS:3.1/<wbr>AV:N/<wbr>AC:L/<wbr>PR:N/<wbr>UI:R/<wbr>S:U/<wbr>C:N/<wbr>I:L/<wbr>A:N</code></p>
+              </div>
+              <div class="score s43">
+                <p class="score__num">4.3</p>
+                <div class="scale" role="img" aria-label="Nota 4,3 na escala CVSS de 0 a 10, faixa média"></div>
+                <p class="score__meta">Severidade média<br><span class="prio">Prioridade média</span></p>
+              </div>
+            </li>
+          </ul>
+          <p class="note">Faixas da escala CVSS v3.1: baixa de 0,1 a 3,9; média de 4,0 a 6,9; alta de 7,0 a 8,9; crítica de 9,0 a 10.</p>
+
+          <h4>Como conduzimos</h4>
+          <ol class="phases">
+            <li><strong>Reconhecimento.</strong> Fingerprinting por cabeçalhos HTTP, comportamento dos servlets e scripts do Nmap.</li>
+            <li><strong>Vulnerabilidades preliminares.</strong> Cookies, token na URL e cabeçalhos, validados manualmente no navegador.</li>
+            <li><strong>Varreduras ativas.</strong> Portas 80 e 443 atrás do HAProxy e as rotas <code>/robots.txt</code>, <code>/probe/</code> e <code>/metrics/</code>.</li>
+            <li><strong>Prova de conceito e mitigação.</strong> PoC no <code>/metrics/</code>, classificação CVSS v3.1 e plano de correção com critério de reteste.</li>
+          </ol>
+
+          <h4>Mitigação e reteste</h4>
+          <ul class="plain">
+            <li>Hotfix no HAProxy: ACL que nega <code>/metrics</code> com 403.</li>
+            <li>Correção definitiva no Tomcat: publicar as métricas só na interface de loopback (127.0.0.1).</li>
+            <li>Na aplicação: <code>HttpOnly</code> no <code>session-config</code> do <code>web.xml</code>, token fora da URL e os dois cabeçalhos de segurança no HAProxy.</li>
+            <li>Reteste: a rota <code>/metrics</code> deve responder 401, 403 ou 404. Qualquer 200 reprova.</li>
+          </ul>
+
+          <figure class="code">
+            <figcaption>Regra de bloqueio no HAProxy e comando de reteste</figcaption>
+<pre><code># haproxy.cfg
+acl is_metrics path_beg -i /metrics
+http-request deny if is_metrics
+
+# reteste
+curl -o /dev/null -s -w "%{http_code}\n" https://<span class="redact" title="Host omitido do relatório">alvo-omitido</span>/metrics</code></pre>
+          </figure>
+
+          <p class="case__link"><a href="https://github.com/FerranteAbc/Cyber-Defense-Project" target="_blank" rel="noopener noreferrer">Ler o relatório completo no GitHub</a></p>
+        </article>
+
+        <div class="projects">
+          <article class="project">
+            <div class="project__head">
+              <h3>CTF Trilha 1: OSINT, threat intelligence e forense de redes</h3>
+              <p class="project__meta">9 desafios, com mapeamento para MITRE ATT&amp;CK</p>
+            </div>
+            <div class="project__body">
+              <ul class="plain">
+                <li>Forense de logs com <code>grep</code> e <code>awk</code>: força bruta SSH em <code>auth.log</code> e varredura automatizada em logs de acesso do Apache.</li>
+                <li>Exfiltração por DNS e por HTTP POST em arquivos pcap, e rastreio de movimentação lateral (SMB, WinRM e RDP).</li>
+                <li>Comandos do atacante mapeados para técnicas MITRE ATT&amp;CK (T1087, T1059, T1053) e IoCs classificados na Pirâmide da Dor.</li>
+                <li>OSINT passivo: coordenadas GPS em metadados EXIF e enumeração de e-mails por registros MX e SPF.</li>
+              </ul>
+              <p class="stack"><strong>Ferramentas:</strong> Wireshark, tshark, grep, awk, exiftool, CyberChef, Maltego.</p>
+              <p><a href="https://github.com/FerranteAbc/FIAP-CTF-Write-ups-Solu-es-de-Ciberseguran-a" target="_blank" rel="noopener noreferrer">Ver os write-ups no GitHub</a></p>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="project__head">
+              <h3>CTF Global Solution FIAP: 15 desafios resolvidos</h3>
+              <p class="project__meta">Wargames do 2º semestre de 2026, com um write-up por desafio</p>
+            </div>
+            <div class="project__body">
+              <ul class="plain">
+                <li>Forense de rede com tshark: exfiltração escondida em ruído HTTP, latência DHCP (DORA) e um Evil Twin em captura 802.11.</li>
+                <li>Firmware e hardware: extração de rootfs com binwalk e leitura de dumps de EEPROM e de logs UART.</li>
+                <li>Scripts e binários: fuzzing de um executável .NET via PowerShell, auditoria estática de um script Scapy e desofuscação de script Bash.</li>
+                <li>Criptografia e esteganografia: ROT13, César, SHA-1 com dicionário em Python (<code>hashlib</code>) e LSB com zsteg.</li>
+              </ul>
+              <p class="stack"><strong>Ferramentas:</strong> Wireshark, tshark, binwalk, zsteg, Python, Bash, PowerShell.</p>
+              <p><a href="https://github.com/FerranteAbc/Global-Solution-CTF-Wargames" target="_blank" rel="noopener noreferrer">Ver os write-ups no GitHub</a></p>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="project__head">
+              <h3>CTF Wargames 2TDCOR: 20 desafios de pentest, protocolos e forense</h3>
+              <p class="project__meta">Alvo único com HTTP, FTP, SSH e SMB</p>
+            </div>
+            <div class="project__body">
+              <ul class="plain">
+                <li>Enumeração e falhas de configuração: <code>phpinfo()</code> exposto, listagem de diretório e bypass de controle por User-Agent.</li>
+                <li>Credenciais: wordlist por OSINT com CUPP e Hydra contra FTP, e sessão nula em SMB com senha fraca (RockYou).</li>
+                <li>Forense de Windows: ZIP quebrado com zip2john e análise de logs <code>.evtx</code> para achar o IP de movimentação lateral.</li>
+              </ul>
+              <p class="stack"><strong>Ferramentas:</strong> Nmap, Gobuster, Hydra, CUPP, John the Ripper, smbclient, python-evtx.</p>
+              <p><a href="https://github.com/FerranteAbc/FIAP-CTF-Write-ups-Solu-es-de-Ciberseguran-a" target="_blank" rel="noopener noreferrer">Ver os write-ups no GitHub</a></p>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="project__head">
+              <h3>Segurança IoT e engenharia reversa de firmware (OWASP IoTGoat)</h3>
+              <p class="project__meta">8 desafios de auditoria embarcada e forense digital</p>
+            </div>
+            <div class="project__body">
+              <ul class="plain">
+                <li>Extração de firmware com binwalk e unsquashfs e auditoria offline de <code>/etc/rc.local</code> e <code>/etc/init.d</code> atrás de credenciais e chaves fixas no código.</li>
+                <li>Hash MD5 quebrado com John the Ripper, busca por listeners netcat (backdoor) e inspeção de módulos de kernel <code>.ko</code> com <code>modinfo</code>.</li>
+                <li>Perícia de e-mail (cabeçalhos SMTP, SPF, DKIM e DMARC) e de PDF com exiftool, pdfid e pdf-parser.</li>
+              </ul>
+              <p class="stack"><strong>Ferramentas:</strong> binwalk, unsquashfs, QEMU, John the Ripper, exiftool, pdf-parser.</p>
+              <p><a href="https://github.com/FerranteAbc/Firmware-Reversing-IoT-Security-Forensics" target="_blank" rel="noopener noreferrer">Ver os write-ups no GitHub</a></p>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="project__head">
+              <h3>Laboratório de pentest com Kali Linux e Metasploitable 2</h3>
+              <p class="project__meta">Ambiente isolado no Hyper-V</p>
+            </div>
+            <div class="project__body">
+              <ul class="plain">
+                <li>Switch virtual interno entre o Kali Linux (auditor) e o Metasploitable 2 (alvo), sem expor o tráfego à rede real.</li>
+                <li>Mapeamento com Nmap, Gobuster e Nikto, exploração controlada com Metasploit e análise de tráfego com Wireshark e tcpdump.</li>
+                <li>Hardening ao final e apresentação em vídeo da PoC e da correção.</li>
+              </ul>
+              <p><a href="https://github.com/FerranteAbc/FIAP-CTF-Write-ups-Solu-es-de-Ciberseguran-a" target="_blank" rel="noopener noreferrer">Ver a documentação no GitHub</a></p>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="project__head">
+              <h3>Automação de suporte técnico</h3>
+              <p class="project__meta">Scripts de uso no trabalho</p>
+            </div>
+            <div class="project__body">
+              <p>Scripts para reduzir trabalho manual na manutenção e no suporte a usuários finais.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- COMPETÊNCIAS -->
+      <section id="competencias" class="section" aria-labelledby="titulo-competencias">
+        <h2 id="titulo-competencias">Competências</h2>
+        <p class="section__intro">Agrupadas por área, com as ferramentas e referências que uso em cada uma.</p>
+
+        <table class="matrix">
+          <thead>
+            <tr>
+              <th scope="col">Área</th>
+              <th scope="col">O que faço</th>
+              <th scope="col">Ferramentas e referências</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Blue team: detecção e resposta</th>
+              <td data-label="O que faço">Triagem de logs, forense de rede e de e-mail, threat intelligence, OSINT, análise de incidentes e hardening.</td>
+              <td data-label="Ferramentas e referências">Wireshark, tshark, tcpdump, Snort, Suricata, MITRE ATT&amp;CK, Cyber Kill Chain, Pirâmide da Dor, CyberChef, ExifTool</td>
+            </tr>
+            <tr>
+              <th scope="row">Segurança ofensiva</th>
+              <td data-label="O que faço">Pentest black box para entender o atacante: reconhecimento, enumeração de serviços e diretórios, exploração controlada e quebra de credenciais.</td>
+              <td data-label="Ferramentas e referências">Nmap, Gobuster, Dirsearch, Nikto, Metasploit, Hydra, John the Ripper</td>
+            </tr>
+            <tr>
+              <th scope="row">Redes e perímetro</th>
+              <td data-label="O que faço">TCP/IP, DNS, DHCP, NAT, VLAN, roteamento, firewall, VPN, proxy e WAF. Leitura de cabeçalhos HTTP e de regras de proxy reverso.</td>
+              <td data-label="Ferramentas e referências">HAProxy (ACLs), Hyper-V (switches virtuais), Wireshark</td>
+            </tr>
+            <tr>
+              <th scope="row">Sistemas e infraestrutura</th>
+              <td data-label="O que faço">Administração e suporte de Windows e Linux (estação e servidor), Active Directory, contas no Google Workspace e atendimento remoto e presencial.</td>
+              <td data-label="Ferramentas e referências">Active Directory, PostgreSQL, Firebird, VirtualBox, Hyper-V</td>
+            </tr>
+            <tr>
+              <th scope="row">Engenharia reversa e IoT</th>
+              <td data-label="O que faço">Extração e análise de firmware, leitura de dumps de EEPROM e de logs UART, análise estática de scripts e binários.</td>
+              <td data-label="Ferramentas e referências">binwalk, unsquashfs, dd, strings, xxd, QEMU, OWASP IoTGoat</td>
+            </tr>
+            <tr>
+              <th scope="row">Automação e governança</th>
+              <td data-label="O que faço">Scripts de automação, relatórios técnicos reproduzíveis, classificação de risco, controle de acesso (identificação, autenticação e autorização) e LGPD.</td>
+              <td data-label="Ferramentas e referências">Python, Bash, PowerShell, Git, CVSS v3.1</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- EXPERIÊNCIA -->
+      <section id="experiencia" class="section" aria-labelledby="titulo-experiencia">
+        <h2 id="titulo-experiencia">Experiência profissional</h2>
+
+        <ol class="timeline">
+          <li class="job">
+            <p class="job__when">jun/2024 até hoje</p>
+            <div class="job__body">
+              <h3>Analista de Sistemas</h3>
+              <p class="job__org">RK Solutions Automação Comercial</p>
+              <ul class="plain">
+                <li>Suporte técnico remoto e presencial a clientes, com análise e resolução de incidentes nos sistemas e nos ambientes de TI deles.</li>
+                <li>Troubleshooting de Windows, redes e periféricos: impressoras fiscais, SAT, balanças e teclados de automação.</li>
+                <li>Administração e ajustes em bancos de dados PostgreSQL e Firebird.</li>
+                <li>Diagnóstico de software, hardware e conectividade, com apoio na configuração de redes.</li>
+              </ul>
+            </div>
+          </li>
+          <li class="job">
+            <p class="job__when">mar/2024 a jun/2024</p>
+            <div class="job__body">
+              <h3>Estagiário de TI</h3>
+              <p class="job__org">Moveleiros</p>
+              <ul class="plain">
+                <li>Gerenciamento de usuários e logins no Active Directory.</li>
+                <li>Monitoramento e suporte de servidores Windows e Linux.</li>
+                <li>Administração de contas de e-mail no Google Workspace.</li>
+                <li>Manutenção e troubleshooting de notebooks, impressoras, celulares e redes.</li>
+              </ul>
+            </div>
+          </li>
+          <li class="job">
+            <p class="job__when">out/2023 a mar/2024</p>
+            <div class="job__body">
+              <h3>Assistente Administrativo</h3>
+              <p class="job__org">Dis Água Distribuidora</p>
+              <ul class="plain">
+                <li>Rotinas administrativas e de faturamento, conferência de documentos e pedidos, acompanhamento de estoque e atendimento a clientes.</li>
+              </ul>
+            </div>
+          </li>
+          <li class="job">
+            <p class="job__when">mar/2022 a jun/2023</p>
+            <div class="job__body">
+              <h3>Jovem Aprendiz de TI</h3>
+              <p class="job__org">Grupo Guardian</p>
+              <ul class="plain">
+                <li>Suporte em hardware e software e manutenção de desktops e notebooks, com atendimento presencial e por telefone.</li>
+                <li>Configuração de dispositivos de controle de acesso facial e digital.</li>
+                <li>Apoio às rotinas de infraestrutura de TI.</li>
+              </ul>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- FORMAÇÃO -->
+      <section id="formacao" class="section" aria-labelledby="titulo-formacao">
+        <h2 id="titulo-formacao">Formação e certificações</h2>
+
+        <div class="degree">
+          <h3>Graduação em Defesa Cibernética</h3>
+          <p>FIAP, de ago/2025 a ago/2027 (previsão). Ênfase em ethical hacking, forense e Secure DevOps.</p>
+        </div>
+
+        <h3 class="subhead">Cursos e certificações</h3>
+        <ul class="ledger">
+          <li>
+            <span class="ledger__title">Cibersegurança: Fundamentos e Práticas Integradas</span>
+            <span class="ledger__org">Alura</span>
+            <span class="ledger__when">abr/2026</span>
+          </li>
+          <li>
+            <span class="ledger__title">Cybersecurity Hacker Skills (120 horas)</span>
+            <span class="ledger__org">FIAP</span>
+            <span class="ledger__when">jan/2026</span>
+          </li>
+          <li>
+            <span class="ledger__title">Qualificação Profissional em Cibersegurança</span>
+            <span class="ledger__org">FIAP</span>
+            <span class="ledger__when">dez/2025</span>
+          </li>
+          <li>
+            <span class="ledger__title">Cibersegurança 2025</span>
+            <span class="ledger__org">Santander e DIO</span>
+            <span class="ledger__when">nov/2025</span>
+          </li>
+          <li>
+            <span class="ledger__title">Introdução ao Pentest na Prática</span>
+            <span class="ledger__org">DESEC Security</span>
+            <span class="ledger__when">jun/2025</span>
+          </li>
         </ul>
-    </section>
 
-   <footer>
-    <p>&copy; 2026 - Desenvolvido por: Pedro Henrique Ferrante Prado</p>
-    <p id="sys-clock"></p>
-</footer>
+        <p class="note">Também concluí: Imersão LGPD com foco técnico (TI Exames), Espionagem Cibernética (Prof. Dr. Davis Alves), Banco de Dados (Fundação Bradesco), Pacote Office (SENAI) e Tecnologia (Flex Company).</p>
+      </section>
 
-    <!-- 1. O botão vem primeiro -->
-<button id="backToTop" title="Retornar ao topo">[ ⬆ TOP ]</button>
+      <!-- CONTATO -->
+      <section id="contato" class="section" aria-labelledby="titulo-contato">
+        <h2 id="titulo-contato">Contato</h2>
+        <p class="section__intro">Escreva por e-mail ou LinkedIn. O telefone está no currículo em PDF.</p>
 
-<!-- 2. O script vem depois para "enxergar" o botão -->
-<script>
-    // --- LÓGICA DO BOTÃO VOLTAR AO TOPO ---
-    let mybutton = document.getElementById("backToTop");
+        <div class="contact">
+          <p class="contact__mail"><a href="mailto:ph84662@gmail.com">ph84662@gmail.com</a></p>
+          <div class="actions">
+            <button class="btn btn--line" type="button" id="copy-email" data-email="ph84662@gmail.com">Copiar e-mail</button>
+            <a class="btn btn--line" href="https://www.linkedin.com/in/pedro-henrique-ferrante-prado-128123230/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a class="btn btn--line" href="https://github.com/FerranteAbc" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a class="btn btn--solid" href="Curriculo-Pedro-Henrique-Ferrante-Prado.pdf" download>Baixar currículo (PDF)</a>
+          </div>
+          <p class="sr-only" id="copy-status" role="status" aria-live="polite"></p>
+        </div>
+      </section>
 
-    window.onscroll = function() {
-        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-            mybutton.style.display = "block";
-        } else {
-            mybutton.style.display = "none";
-        }
-    };
+      <footer class="footer">
+        <p>Pedro Henrique Ferrante Prado, 2026.</p>
+        <p>Site estático, sem cookies nem rastreadores, com política de segurança de conteúdo (CSP) restritiva.</p>
+      </footer>
 
-    mybutton.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    </div>
+  </main>
 
-    // --- LÓGICA DO RELÓGIO E OBSERVADOR (QUE VOCÊ JÁ TINHA) ---
-    function updateClock() {
-        const now = new Date();
-        const time = now.toLocaleTimeString('pt-BR');
-        const clockElement = document.getElementById('sys-clock');
-        if(clockElement) clockElement.innerText = "SYSTEM_TIME: " + time;
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('typing-active');
-            }
-        });
-    }, { threshold: 0.5 });
-
-    document.querySelectorAll('h2').forEach(h2 => {
-        observer.observe(h2);
-    });
-</script>
-
-</body> 
+  <script src="script.js" defer></script>
+</body>
 </html>
