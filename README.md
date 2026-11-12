@@ -15,6 +15,6 @@ Portfólio técnico com foco em blue team, publicado em https://ferranteabc.gith
 
 As animações usam só CSS e um `IntersectionObserver`, sem bibliotecas: abertura do resumo (nome sai de trás de uma tarja de omissão e o painel imprime os comandos linha a linha), contadores, régua CVSS que percorre a nota, caminho do tráfego, táticas MITRE ATT&CK que acendem em sequência e uma linha de progresso de leitura no índice.
 
-Elas só rodam com `prefers-reduced-motion: no-preference` e fora da impressão. Sem JavaScript, com movimento reduzido ou ao imprimir, a página aparece completa e parada.
+As animações rodam por padrão e **não dependem** da configuração de animações do sistema (em máquinas virtuais, no modo de economia de energia e em vários notebooks corporativos ela vem desligada, e o site não ficaria animado para quem o visse ali). Em troca, há um botão "Pausar animações" (no índice, ou no rodapé em telas pequenas) que deixa a página completa e parada; a escolha fica salva no navegador. Sem JavaScript, com a pausa ligada ou ao imprimir, a página aparece completa e parada.
 
-O fundo do resumo é um canvas de "fluxo de logs" (bytes em hexadecimal e termos como SYSMON, DNS e T1059 caindo em colunas). Ele usa a cor de destaque do tema claro ou escuro, pausa quando o resumo sai da tela ou a aba fica em segundo plano, fica oculto na impressão e, com movimento reduzido, mostra apenas um quadro estático.
+O fundo do resumo é um canvas de "fluxo de logs" (bytes em hexadecimal e termos como SYSMON, DNS e T1059 caindo em colunas). Ele usa a cor de destaque do tema claro ou escuro, pausa quando o resumo sai da tela ou a aba fica em segundo plano, fica oculto na impressão e, com as animações pausadas, mostra apenas um quadro estático.

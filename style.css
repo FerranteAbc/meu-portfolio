@@ -2,8 +2,9 @@
    Portfólio de Pedro Henrique Ferrante Prado
    Conceito: relatório de avaliação de segurança. Índice fixo à esquerda,
    achados com ID e régua de severidade CVSS. Sem fontes nem scripts de terceiros.
-   Movimento ao rolar: ver o bloco "Movimento" perto do fim. Tudo ali só vale
-   com prefers-reduced-motion: no-preference e fora da impressão.
+   Movimento ao rolar: ver o bloco "Movimento" perto do fim. Vale só na tela (nunca na
+   impressão) e roda por padrão: o script não depende da configuração do sistema e há um
+   botão para pausar tudo (classe .no-motion no <html>).
    ========================================================================== */
 
 :root {
@@ -278,6 +279,34 @@ code {
   color: var(--accent);
   max-width: 40rem;
 }
+/* Linha de digitação dos focos: decorativa (o subtítulo e o texto abaixo já dizem o mesmo). */
+.hero__typed {
+  margin-top: 0.85rem;
+  min-height: 1.75em;
+  overflow: hidden;
+  white-space: nowrap;
+  font: 0.98rem/1.75 var(--mono);
+  color: var(--ink-2);
+}
+.hero__typed::before {
+  content: "$";
+  margin-right: 0.7ch;
+  font-weight: 700;
+  color: var(--accent);
+}
+.hero__typed.is-typing .typed__text::after {
+  content: "";
+  display: inline-block;
+  width: 0.55em;
+  height: 1.05em;
+  margin-left: 0.2em;
+  vertical-align: text-bottom;
+  background: var(--accent);
+}
+@media (max-width: 380px) {
+  .hero__typed { font-size: 0.84rem; }
+}
+
 .hero__lead {
   margin-top: 1.25rem;
   max-width: 40rem;
@@ -793,12 +822,12 @@ h4 {
 
 /* ---------- Movimento ---------- */
 
-/* Tudo aqui é aprimoramento: sem JS, com movimento reduzido ou na impressão, a
-   página aparece completa e parada. As classes .rv, .rv-head, .rv-line e
-   .rv-group são aplicadas pelo script; .reveal-ready só existe se o navegador
-   aceita IntersectionObserver e a pessoa não pediu movimento reduzido. */
+/* Tudo aqui é aprimoramento: sem JS, com as animações pausadas (.no-motion) ou na
+   impressão, a página aparece completa e parada. As classes .rv, .rv-head, .rv-line
+   e .rv-group são aplicadas pelo script; .reveal-ready só existe se o navegador
+   aceita IntersectionObserver e a pessoa não pausou as animações. */
 
-@media screen and (prefers-reduced-motion: no-preference) {
+@media screen {
   @keyframes rise {
     from { opacity: 0; transform: translateY(14px); }
   }
@@ -832,6 +861,8 @@ h4 {
   .hero h1::after { animation: unredact 0.9s cubic-bezier(0.7, 0, 0.2, 1) 0.2s both; }
 
   .hero__role { animation: rise 0.7s var(--ease) 0.5s both; }
+  .hero__typed { animation: rise 0.7s var(--ease) 0.55s both; }
+  .hero__typed.is-idle .typed__text::after { animation: caret 1s steps(1, end) infinite; }
   .hero__lead { animation: rise 0.7s var(--ease) 0.6s both; }
   .hero .actions { animation: rise 0.7s var(--ease) 0.7s both; }
   .hero .stats { animation: rise 0.7s var(--ease) 0.8s both; }
@@ -951,11 +982,42 @@ h4 {
   .reveal-ready .is-done *::after { transition: none !important; }
 }
 
-/* ---------- Movimento reduzido ---------- */
+/* ---------- Animações pausadas (botão "Pausar animações") ---------- */
 
+/* A rolagem suave continua respeitando a configuração do sistema. */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  * { transition: none !important; }
+}
+
+/* Com as animações pausadas a página fica completa e parada. */
+.no-motion { scroll-behavior: auto; }
+.no-motion *,
+.no-motion *::before,
+.no-motion *::after {
+  animation: none !important;
+  transition: none !important;
+}
+.no-motion .hero h1::after,
+.no-motion .rv-head::after { display: none; }
+
+/* Botão de pausar (criado como oculto no HTML; o script o mostra) */
+.motion-toggle {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.motion-toggle[hidden] { display: none; }
+.rail .motion-toggle { color: var(--rail-muted); font-weight: 500; text-decoration: none; }
+.rail .motion-toggle:hover { color: var(--rail-ink); text-decoration: underline; }
+.footer .motion-toggle { margin-top: 0.6rem; color: var(--muted); }
+.footer .motion-toggle:hover { color: var(--ink); }
+@media (min-width: 1101px) {
+  .footer .motion-toggle { display: none; }
 }
 
 /* ---------- Impressão (recrutadores imprimem) ---------- */
@@ -965,7 +1027,7 @@ h4 {
     --paper: #fff; --panel: #fff; --ink: #000; --ink-2: #222; --muted: #444;
     --rule: #ccc; --rule-strong: #999; --accent: #064e4a;
   }
-  .rail, .skip-link, #copy-email, .actions, .hero .actions, .stream { display: none !important; }
+  .rail, .skip-link, #copy-email, .actions, .hero .actions, .stream, .hero__typed { display: none !important; }
   .main { margin: 0; }
   .page { max-width: none; padding: 0; }
   .section { margin-top: 2rem; break-inside: auto; }

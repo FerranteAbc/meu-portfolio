@@ -65,11 +65,29 @@
   }
 
   /* --- Movimento ao rolar ---
-     O progresso de leitura vale para todos. A entrada dos blocos só roda se o navegador
-     aceita IntersectionObserver e a pessoa não pediu movimento reduzido. Sem isso, a
-     página fica completa e parada: nenhum conteúdo depende desta parte para aparecer. */
+     O progresso de leitura vale para todos. As animações rodam por padrão, sem depender da
+     configuração de animações do sistema (em máquinas virtuais, no modo de economia de
+     energia e em muitos notebooks corporativos ela vem desligada). Quem quiser pode pausar
+     tudo pelo botão "Pausar animações"; a escolha fica salva neste navegador. Sem
+     IntersectionObserver, com a pausa ligada ou na impressão, a página fica completa e
+     parada: nenhum conteúdo depende desta parte para aparecer. */
   var root = document.documentElement;
-  var reduceMotion = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : { matches: false };
+  var STORE = "portfolio-animacoes";
+  var listeners = [];
+  // reduceMotion.matches é verdadeiro quando a pessoa pausou as animações.
+  var reduceMotion = {
+    matches: false,
+    addEventListener: function (type, fn) { listeners.push(fn); },
+    set: function (paused) {
+      reduceMotion.matches = paused;
+      try {
+        if (paused) { window.localStorage.setItem(STORE, "off"); } else { window.localStorage.removeItem(STORE); }
+      } catch (e) { /* sem armazenamento: vale só nesta visita */ }
+      listeners.slice().forEach(function (fn) { fn(); });
+    }
+  };
+  try { reduceMotion.matches = window.localStorage.getItem(STORE) === "off"; } catch (e) { /* ignora */ }
+  root.classList.toggle("no-motion", reduceMotion.matches);
   var pending = []; // elementos ainda escondidos, à espera de entrar na tela
   var counters = []; // números que sobem ao entrar na tela (nota CVSS e indicadores)
   var io = null;
@@ -241,20 +259,22 @@
   window.addEventListener("resize", onScroll);
   paint();
 
-  // Se a pessoa ligar "reduzir movimento" com a página aberta, tudo aparece de uma vez.
+  // Se a pessoa pausar as animações com a página aberta, tudo aparece de uma vez. Para
+  // retomar, a página recarrega: as entradas por rolagem precisam do estado inicial.
   var onMotionChange = function () {
-    if (!reduceMotion.matches) { return; }
+    root.classList.toggle("no-motion", reduceMotion.matches);
+    if (!reduceMotion.matches) { window.location.reload(); return; }
     root.classList.remove("reveal-ready");
     finishAll();
   };
-  if (reduceMotion.addEventListener) { reduceMotion.addEventListener("change", onMotionChange); }
+  reduceMotion.addEventListener("change", onMotionChange);
   // Na impressão, os números aparecem completos.
   window.addEventListener("beforeprint", finishAll);
 
   /* --- Fundo do resumo: fluxo de logs ---
      Canvas decorativo (aria-hidden) atrás do resumo: colunas de bytes em hexadecimal e de
      termos de blue team caem devagar. Só roda com o resumo na tela e a aba visível. Com
-     movimento reduzido, desenha um quadro parado, sem animar. */
+     as animações pausadas, desenha um quadro parado, sem animar. */
   function setupStream() {
     var hero = document.getElementById("resumo");
     var canvas = document.createElement("canvas");
@@ -393,6 +413,107 @@
   }
 
   setupStream();
+
+  /* --- Digitação dos focos no resumo (decorativa; pausada ou sem JS, fica a primeira frase) --- */
+  function setupTyping() {
+    var line = document.querySelector(".hero__typed");
+    var out = line ? line.querySelector(".typed__text") : null;
+    if (!out) { return; }
+    var roles = (out.getAttribute("data-typed") || "").split("|").filter(Boolean);
+    if (roles.length < 2) { return; }
+    var fixed = out.textContent;
+    var index = 0;
+    var pos = 0;
+    var deleting = false;
+    var timer = 0;
+    var active = false;
+    var onScreen = true;
+
+    function wait(ms) { timer = window.setTimeout(tick, ms); }
+
+    function tick() {
+      var word = roles[index];
+      line.classList.remove("is-idle");
+      if (!deleting) {
+        pos += 1;
+        out.textContent = word.slice(0, pos);
+        if (pos >= word.length) {
+          deleting = true;
+          line.classList.add("is-idle");
+          wait(1900); // frase completa: o cursor pisca
+        } else {
+          wait(50 + Math.random() * 55);
+        }
+      } else {
+        pos -= 1;
+        out.textContent = word.slice(0, pos);
+        if (pos <= 0) {
+          deleting = false;
+          index = (index + 1) % roles.length;
+          line.classList.add("is-idle");
+          wait(380);
+        } else {
+          wait(24);
+        }
+      }
+    }
+
+    function run(delay) {
+      if (active || !onScreen || document.hidden || reduceMotion.matches) { return; }
+      active = true;
+      wait(delay);
+    }
+
+    function halt() {
+      active = false;
+      window.clearTimeout(timer);
+    }
+
+    function restart() {
+      index = 0;
+      pos = 0;
+      deleting = false;
+      out.textContent = "";
+      line.classList.add("is-typing", "is-idle");
+      run(1100); // começa depois da abertura do resumo
+    }
+
+    function settle() {
+      halt();
+      out.textContent = fixed;
+      line.classList.remove("is-typing", "is-idle");
+    }
+
+    if (!reduceMotion.matches) { restart(); }
+
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        onScreen = entries[entries.length - 1].isIntersecting;
+        if (onScreen) { run(250); } else { halt(); }
+      }, { threshold: 0 }).observe(line);
+    }
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) { halt(); } else { run(250); }
+    });
+    if (reduceMotion.addEventListener) {
+      reduceMotion.addEventListener("change", function () {
+        if (reduceMotion.matches) { settle(); } else { restart(); }
+      });
+    }
+  }
+
+  setupTyping();
+
+  /* --- Botão para pausar ou retomar as animações --- */
+  Array.prototype.forEach.call(document.querySelectorAll(".js-motion-toggle"), function (button) {
+    var label = function () {
+      button.textContent = reduceMotion.matches ? "Retomar animações" : "Pausar animações";
+    };
+    label();
+    button.hidden = false;
+    button.addEventListener("click", function () { reduceMotion.set(!reduceMotion.matches); });
+    reduceMotion.addEventListener("change", label);
+  });
 
   /* --- Copiar e-mail --- */
   var button = document.getElementById("copy-email");
