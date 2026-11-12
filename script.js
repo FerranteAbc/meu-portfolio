@@ -251,6 +251,149 @@
   // Na impressão, os números aparecem completos.
   window.addEventListener("beforeprint", finishAll);
 
+  /* --- Fundo do resumo: fluxo de logs ---
+     Canvas decorativo (aria-hidden) atrás do resumo: colunas de bytes em hexadecimal e de
+     termos de blue team caem devagar. Só roda com o resumo na tela e a aba visível. Com
+     movimento reduzido, desenha um quadro parado, sem animar. */
+  function setupStream() {
+    var hero = document.getElementById("resumo");
+    var canvas = document.createElement("canvas");
+    var ctx = canvas.getContext ? canvas.getContext("2d") : null;
+    if (!hero || !ctx) { return; }
+    canvas.className = "stream";
+    canvas.setAttribute("aria-hidden", "true");
+    hero.insertBefore(canvas, hero.firstChild);
+
+    var WORDS = ["SYSMON", "EVTX", "DNS", "SSH", "RDP", "SMB", "IOC", "C2", "SIEM", "NTFS",
+      "DFIR", "TTP", "ACL", "403", "401", "T1059", "T1110", "T1021"];
+    var HEX = "0123456789ABCDEF";
+    var FADE = "rgba(0,0,0,0.07)";
+    var size = 15;
+    var pitch = 17;
+    var width = 0;
+    var height = 0;
+    var cols = [];
+    var color = "#0b6e69";
+    var frameId = 0;
+    var last = 0;
+    var running = false;
+    var onScreen = true;
+    var resizeTimer = 0;
+
+    function readColor() {
+      var value = window.getComputedStyle(root).getPropertyValue("--accent").trim();
+      if (value) { color = value; }
+    }
+
+    function column(spread) {
+      var rows = Math.ceil(height / size);
+      return {
+        y: -Math.random() * rows * spread,
+        speed: 0.22 + Math.random() * 0.5,
+        word: Math.random() < 0.35 ? WORDS[Math.floor(Math.random() * WORDS.length)] : "",
+        i: 0
+      };
+    }
+
+    function step() {
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.fillStyle = FADE;
+      ctx.fillRect(0, 0, width, height);
+      ctx.globalCompositeOperation = "source-over";
+      ctx.fillStyle = color;
+      for (var c = 0; c < cols.length; c++) {
+        var col = cols[c];
+        var before = Math.floor(col.y);
+        col.y += col.speed;
+        var row = Math.floor(col.y);
+        if (row !== before && row >= 0) {
+          var ch = col.word ? col.word.charAt(col.i % col.word.length) : HEX.charAt(Math.floor(Math.random() * 16));
+          col.i += 1;
+          ctx.fillText(ch, c * pitch, row * size);
+        }
+        if (row * size > height && Math.random() > 0.97) { cols[c] = column(0.15); }
+      }
+    }
+
+    // Aquece a animação: o fundo já nasce com colunas em vários pontos da queda.
+    function warm(steps) {
+      for (var i = 0; i < steps; i++) { step(); }
+    }
+
+    function fit() {
+      var ratio = Math.min(window.devicePixelRatio || 1, 1.5);
+      width = canvas.clientWidth;
+      height = canvas.clientHeight;
+      if (!width || !height) { return; }
+      size = width < 600 ? 13 : 15;
+      pitch = Math.round(size * 1.15);
+      canvas.width = Math.round(width * ratio);
+      canvas.height = Math.round(height * ratio);
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      ctx.font = size + 'px "Cascadia Mono", "Cascadia Code", ui-monospace, Consolas, monospace';
+      ctx.textBaseline = "top";
+      cols = [];
+      for (var i = 0, n = Math.ceil(width / pitch); i < n; i++) { cols.push(column(0.6)); }
+      warm(reduceMotion.matches ? 220 : 40);
+    }
+
+    function frame(now) {
+      frameId = window.requestAnimationFrame(frame);
+      if (now - last < 42) { return; } // cerca de 24 quadros por segundo
+      last = now;
+      step();
+    }
+
+    function start() {
+      if (running || !onScreen || document.hidden || reduceMotion.matches) { return; }
+      running = true;
+      last = 0;
+      frameId = window.requestAnimationFrame(frame);
+    }
+
+    function stop() {
+      running = false;
+      window.cancelAnimationFrame(frameId);
+    }
+
+    function refit() {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(function () {
+        if (canvas.clientWidth !== width || canvas.clientHeight !== height) { fit(); }
+      }, 150);
+    }
+
+    readColor();
+    fit();
+    start();
+
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        onScreen = entries[entries.length - 1].isIntersecting;
+        if (onScreen) { start(); } else { stop(); }
+      }, { threshold: 0 }).observe(hero);
+    }
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) { stop(); } else { start(); }
+    });
+    if ("ResizeObserver" in window) { new ResizeObserver(refit).observe(canvas); } else { window.addEventListener("resize", refit); }
+
+    var scheme = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+    if (scheme && scheme.addEventListener) {
+      scheme.addEventListener("change", function () {
+        readColor();
+        fit();
+      });
+    }
+    if (reduceMotion.addEventListener) {
+      reduceMotion.addEventListener("change", function () {
+        if (reduceMotion.matches) { stop(); fit(); } else { start(); }
+      });
+    }
+  }
+
+  setupStream();
+
   /* --- Copiar e-mail --- */
   var button = document.getElementById("copy-email");
   var status = document.getElementById("copy-status");

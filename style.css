@@ -596,6 +596,24 @@ h4 {
 .code .k { color: #7dd3c8; }
 .code .s { color: #f2c879; }
 
+/* Fundo do resumo: fluxo de logs (canvas criado pelo script, só decorativo) */
+.hero { position: relative; isolation: isolate; }
+.stream {
+  position: absolute;
+  z-index: -1;
+  top: -5rem;
+  left: -3.5rem;
+  width: calc(100% + 7rem);
+  height: calc(100% + 6rem);
+  opacity: 0.26;
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(120% 100% at 92% 0%, #000 0%, rgba(0, 0, 0, 0.55) 45%, transparent 80%);
+  mask-image: radial-gradient(120% 100% at 92% 0%, #000 0%, rgba(0, 0, 0, 0.55) 45%, transparent 80%);
+}
+@media (prefers-color-scheme: dark) {
+  .stream { opacity: 0.36; }
+}
+
 /* Indicadores do resumo */
 .stats {
   display: grid;
@@ -711,6 +729,7 @@ h4 {
 
   .page { padding: 3rem 1.5rem 3rem; }
   html { scroll-padding-top: 6.5rem; }
+  .stream { top: -3rem; left: -1.5rem; width: calc(100% + 3rem); height: calc(100% + 4rem); }
 }
 
 @media (max-width: 860px) {
@@ -946,7 +965,7 @@ h4 {
     --paper: #fff; --panel: #fff; --ink: #000; --ink-2: #222; --muted: #444;
     --rule: #ccc; --rule-strong: #999; --accent: #064e4a;
   }
-  .rail, .skip-link, #copy-email, .actions, .hero .actions { display: none !important; }
+  .rail, .skip-link, #copy-email, .actions, .hero .actions, .stream { display: none !important; }
   .main { margin: 0; }
   .page { max-width: none; padding: 0; }
   .section { margin-top: 2rem; break-inside: auto; }
