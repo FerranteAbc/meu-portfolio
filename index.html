@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'">
   <title>Pedro Henrique Ferrante Prado | Analista de Sistemas e Blue Team</title>
-  <meta name="description" content="Portfólio técnico de Pedro Henrique Ferrante Prado, Analista de Sistemas e graduando em Defesa Cibernética na FIAP, com foco em blue team: detecção, análise de logs e tráfego, forense digital e threat intelligence. Mais de 50 CTFs documentados e avaliação de segurança web com CVSS v3.1.">
+  <meta name="description" content="Portfólio técnico de Pedro Henrique Ferrante Prado, Analista de Sistemas e graduando em Defesa Cibernética na FIAP, com foco em blue team: detecção, análise de logs e tráfego, forense digital e threat intelligence. Mais de 60 CTFs documentados e avaliação de segurança web com CVSS v3.1.">
   <meta name="author" content="Pedro Henrique Ferrante Prado">
   <meta name="theme-color" content="#0f1b2d">
   <link rel="canonical" href="https://ferranteabc.github.io/meu-portfolio/">
@@ -13,7 +13,7 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:title" content="Pedro Henrique Ferrante Prado | Analista de Sistemas e Blue Team">
-  <meta property="og:description" content="Foco em blue team: detecção, forense e threat intelligence. Mais de 50 CTFs documentados, mapa MITRE ATT&amp;CK e avaliação de segurança web com CVSS v3.1.">
+  <meta property="og:description" content="Foco em blue team: detecção, forense e threat intelligence. Mais de 60 CTFs documentados, mapa MITRE ATT&amp;CK e avaliação de segurança web com CVSS v3.1.">
   <meta property="og:url" content="https://ferranteabc.github.io/meu-portfolio/">
   <meta property="og:image" content="https://ferranteabc.github.io/meu-portfolio/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -86,7 +86,7 @@
         <div class="hero__text">
           <h1 id="titulo-resumo">Pedro Henrique Ferrante Prado</h1>
           <p class="hero__role">Analista de Sistemas em formação em Defesa Cibernética, com foco em blue team</p>
-          <p class="hero__lead">Atuo em suporte e infraestrutura de TI desde 2022 e estudo Defesa Cibernética na FIAP. Meu foco é blue team: detecção, análise de logs e de tráfego, forense e resposta a incidentes, com base ofensiva em pentest. Tudo está documentado em repositórios públicos: mais de 50 desafios de CTF e uma avaliação de segurança web com achados em CVSS v3.1.</p>
+          <p class="hero__lead">Atuo em suporte e infraestrutura de TI desde 2022 e estudo Defesa Cibernética na FIAP. Meu foco é blue team: detecção, análise de logs e de tráfego, forense e resposta a incidentes, com base ofensiva em pentest. Tudo está documentado em repositórios públicos: mais de 60 desafios de CTF e uma avaliação de segurança web com achados em CVSS v3.1.</p>
 
           <div class="actions">
             <a class="btn btn--solid" href="Curriculo-Pedro-Henrique-Ferrante-Prado.pdf" download>Baixar currículo (PDF)</a>
@@ -152,11 +152,11 @@
         <dl class="duties">
           <div class="duty">
             <dt>Detecção</dt>
-            <dd>Triagem de logs de autenticação, de acesso web e de eventos do Windows (<code>.evtx</code>) para achar força bruta, varreduras automatizadas e movimentação lateral. Snort e Suricata em laboratório.</dd>
+            <dd>Triagem de logs de autenticação, de acesso web e de eventos do Windows (<code>.evtx</code>, incluindo Sysmon) para achar força bruta, varreduras automatizadas e movimentação lateral. Snort e Suricata em laboratório.</dd>
           </div>
           <div class="duty">
             <dt>Análise e forense</dt>
-            <dd>Inspeção profunda de pacotes (DPI) com Wireshark e tshark para achar exfiltração por DNS e HTTP POST, comunicação com C2 e Evil Twin em 802.11. Perícia de e-mail (cabeçalhos SMTP, SPF, DKIM e DMARC) e de arquivos (metadados, PDF, firmware).</dd>
+            <dd>Inspeção profunda de pacotes (DPI) com Wireshark e tshark para achar exfiltração por DNS e HTTP POST, comunicação com C2 e Evil Twin em 802.11. Perícia de e-mail (cabeçalhos SMTP, SPF, DKIM e DMARC) e de arquivos (metadados, PDF, firmware). Forense de disco (ext2/ext3 e NTFS, com Jump Lists e timestomping), de memória com Volatility 3 e de imagens lógicas AD1.</dd>
           </div>
           <div class="duty">
             <dt>Threat intelligence</dt>
@@ -176,7 +176,7 @@
           <li class="is-covered"><strong>Execução</strong><span>T1059, interpretadores de comando e scripts</span><span class="sr-only">Com write-up.</span></li>
           <li class="is-covered"><strong>Persistência</strong><span>T1053, scripts de boot e listeners ocultos</span><span class="sr-only">Com write-up.</span></li>
           <li><strong>Escalonamento de privilégios</strong><span class="sr-only">Sem write-up ainda.</span></li>
-          <li class="is-covered"><strong>Evasão de defesa</strong><span>Desofuscação de Base64, hex e ruído injetado</span><span class="sr-only">Com write-up.</span></li>
+          <li class="is-covered"><strong>Evasão de defesa</strong><span>Desofuscação de Base64, hex e ruído injetado, e timestomping em NTFS</span><span class="sr-only">Com write-up.</span></li>
           <li class="is-covered"><strong>Acesso a credenciais</strong><span>Força bruta SSH em <code>auth.log</code> e hashes quebrados em laboratório</span><span class="sr-only">Com write-up.</span></li>
           <li class="is-covered"><strong>Descoberta</strong><span>T1087, enumeração de contas e de serviços</span><span class="sr-only">Com write-up.</span></li>
           <li class="is-covered"><strong>Movimento lateral</strong><span>SMB, WinRM e RDP em logs <code>.evtx</code></span><span class="sr-only">Com write-up.</span></li>
@@ -295,6 +295,23 @@ curl -o /dev/null -s -w "%{http_code}\n" https://<span class="redact" title="Hos
         <div class="projects">
           <article class="project">
             <div class="project__head">
+              <h3>CTF Global Solution FIAP (3º semestre): 15 desafios de forense digital e DFIR</h3>
+              <p class="project__meta">Global Solution de nov/2026, com um write-up por desafio</p>
+            </div>
+            <div class="project__body">
+              <ul class="plain">
+                <li>Logs do Windows: Sysmon em <code>.evtx</code> lido com <code>Get-WinEvent</code> e XPath, contagem de eventos por ID e força bruta de RDP (T1110 e T1021.001).</li>
+                <li>Memória: Volatility 3 e <code>strings</code> em dumps do Windows, cabeçalhos de e-mails do Thunderbird e recuperação de registros <code>.evt</code> por assinatura (carving).</li>
+                <li>Disco: ext2/ext3 com The Sleuth Kit, análise do <code>install.sh</code> de um rootkit (T1562.004), timestomping no NTFS (<code>$SI</code> x <code>$FN</code>, T1070.006) e Jump Lists.</li>
+                <li>Imagens lógicas AD1 do FTK Imager, lidas com um script em Python.</li>
+              </ul>
+              <p class="stack"><strong>Ferramentas:</strong> Volatility 3, The Sleuth Kit, PowerShell, Python, Bash.</p>
+              <p><a href="https://github.com/FerranteAbc/Global-Solution-CTF-Forense-DFIR" target="_blank" rel="noopener noreferrer">Ver os write-ups no GitHub</a></p>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="project__head">
               <h3>CTF Trilha 1: OSINT, threat intelligence e forense de redes</h3>
               <p class="project__meta">9 desafios, com mapeamento para MITRE ATT&amp;CK</p>
             </div>
@@ -402,8 +419,8 @@ curl -o /dev/null -s -w "%{http_code}\n" https://<span class="redact" title="Hos
           <tbody>
             <tr>
               <th scope="row">Blue team: detecção e resposta</th>
-              <td data-label="O que faço">Triagem de logs, forense de rede e de e-mail, threat intelligence, OSINT, análise de incidentes e hardening.</td>
-              <td data-label="Ferramentas e referências">Wireshark, tshark, tcpdump, Snort, Suricata, MITRE ATT&amp;CK, Cyber Kill Chain, Pirâmide da Dor, CyberChef, ExifTool</td>
+              <td data-label="O que faço">Triagem de logs, forense de rede, de e-mail, de disco e de memória, threat intelligence, OSINT, análise de incidentes e hardening.</td>
+              <td data-label="Ferramentas e referências">Wireshark, tshark, tcpdump, Snort, Suricata, Sysmon, Volatility 3, The Sleuth Kit, MITRE ATT&amp;CK, Cyber Kill Chain, Pirâmide da Dor, CyberChef, ExifTool</td>
             </tr>
             <tr>
               <th scope="row">Segurança ofensiva</th>
