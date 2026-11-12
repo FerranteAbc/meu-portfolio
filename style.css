@@ -2,6 +2,8 @@
    Portfólio de Pedro Henrique Ferrante Prado
    Conceito: relatório de avaliação de segurança. Índice fixo à esquerda,
    achados com ID e régua de severidade CVSS. Sem fontes nem scripts de terceiros.
+   Movimento ao rolar: ver o bloco "Movimento" perto do fim. Tudo ali só vale
+   com prefers-reduced-motion: no-preference e fora da impressão.
    ========================================================================== */
 
 :root {
@@ -39,6 +41,10 @@
   --radius: 6px;
   --rail-w: 17rem;
 
+  /* Tarja de omissão dos títulos (animação de entrada) e curva de movimento */
+  --bar: #0f1b2d;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
   --sans: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
   --mono: "Cascadia Code", "Cascadia Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
@@ -58,6 +64,7 @@
     --rail-rule: #1b2a3a;
     --code-bg: #070c12;
     --alert: #ff8f86;
+    --bar: #33475d;
   }
 }
 
@@ -208,6 +215,21 @@ code {
 .rail__link:hover { color: var(--rail-ink); text-decoration: underline; }
 
 .rail :focus-visible { outline-color: var(--rail-accent); }
+
+/* Progresso de leitura: linha na borda do índice, preenchida conforme a rolagem
+   (--read vai de 0 a 1, definido pelo script) */
+.rail::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--rail-w) - 2px);
+  width: 2px;
+  background: var(--rail-accent);
+  transform: scaleY(var(--read, 0));
+  transform-origin: top;
+  pointer-events: none;
+}
 
 /* ---------- Página ---------- */
 
@@ -388,7 +410,7 @@ h4 {
   content: "";
   position: absolute;
   top: -0.3rem;
-  left: calc(var(--s) * 10%);
+  left: calc(var(--s) * 10% * var(--p, 1));
   width: 4px;
   height: 1.1rem;
   background: var(--ink);
@@ -569,9 +591,31 @@ h4 {
 .hero__text { min-width: 0; }
 .hero__panel { max-width: 44rem; margin-top: 2.5rem; }
 .hero__panel pre { font-size: 0.82rem; }
+.hero__panel code { display: block; width: max-content; min-width: 100%; }
 .code .c { color: var(--code-muted); }
 .code .k { color: #7dd3c8; }
 .code .s { color: #f2c879; }
+
+/* Indicadores do resumo */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 1.5rem;
+  max-width: 40rem;
+  margin-top: 2.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule-strong);
+}
+.stats li { display: flex; flex-direction: column; gap: 0.35rem; }
+.stat__num {
+  font-size: 2rem;
+  line-height: 1;
+  font-weight: 750;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.stat__sfx { color: var(--muted); font-weight: 600; }
+.stat__label { font-size: 0.88rem; line-height: 1.4; color: var(--muted); }
 
 /* ---------- Foco em blue team ---------- */
 
@@ -596,6 +640,8 @@ h4 {
   margin-top: 1rem;
 }
 .attack li {
+  position: relative;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
@@ -634,6 +680,17 @@ h4 {
   .rail__name { font-size: 1rem; }
   .rail__role { margin-top: 0; font-size: 0.85rem; }
   .rail__links { display: none; }
+  .rail::after {
+    position: absolute;
+    top: auto;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: auto;
+    height: 2px;
+    transform: scaleX(var(--read, 0));
+    transform-origin: left;
+  }
 
   .rail__nav { margin: 0 -1rem; }
   .rail__nav ul {
@@ -715,6 +772,166 @@ h4 {
   .ficha { grid-column: 1 / -1; }
 }
 
+/* ---------- Movimento ---------- */
+
+/* Tudo aqui é aprimoramento: sem JS, com movimento reduzido ou na impressão, a
+   página aparece completa e parada. As classes .rv, .rv-head, .rv-line e
+   .rv-group são aplicadas pelo script; .reveal-ready só existe se o navegador
+   aceita IntersectionObserver e a pessoa não pediu movimento reduzido. */
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(14px); }
+  }
+  @keyframes unredact {
+    to { transform: scaleX(0); }
+  }
+  /* 13 linhas no painel de comandos: uma por passo */
+  @keyframes print-lines {
+    from { clip-path: inset(0 0 100% 0); }
+    to { clip-path: inset(0 0 0 0); }
+  }
+  @keyframes caret {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  /* Abertura do resumo: o nome sai de trás de uma tarja de omissão, o texto
+     sobe em sequência e o painel imprime os comandos linha a linha. */
+  .hero h1,
+  .reveal-ready .rv-head { position: relative; }
+  .hero h1::after,
+  .reveal-ready .rv-head::after {
+    content: "";
+    position: absolute;
+    inset: 0.04em -0.1em;
+    background: var(--bar);
+    transform-origin: right;
+    pointer-events: none;
+  }
+  .hero h1::after { animation: unredact 0.9s cubic-bezier(0.7, 0, 0.2, 1) 0.2s both; }
+
+  .hero__role { animation: rise 0.7s var(--ease) 0.5s both; }
+  .hero__lead { animation: rise 0.7s var(--ease) 0.6s both; }
+  .hero .actions { animation: rise 0.7s var(--ease) 0.7s both; }
+  .hero .stats { animation: rise 0.7s var(--ease) 0.8s both; }
+  .hero__panel { animation: rise 0.7s var(--ease) 0.55s both; }
+  .hero__panel code { animation: print-lines 1.5s steps(13, end) 1.1s both; }
+  .hero__panel code::after {
+    content: "";
+    display: inline-block;
+    width: 0.55em;
+    height: 1.1em;
+    margin-left: 0.25em;
+    vertical-align: text-bottom;
+    background: var(--rail-accent);
+    opacity: 0;
+    animation: caret 1s steps(1, end) 2.6s 6 forwards;
+  }
+
+  /* Entrada por rolagem: blocos sobem poucos pixels, com atraso curto entre irmãos
+     (--d, definido pelo script). */
+  .reveal-ready .rv {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s ease var(--d, 0s), transform 0.7s var(--ease) var(--d, 0s);
+  }
+  .reveal-ready .rv.is-in { opacity: 1; transform: none; }
+
+  /* Títulos de seção: a tarja sai da esquerda para a direita, como num documento
+     desclassificado. */
+  .reveal-ready .rv-head { width: fit-content; max-width: 100%; }
+  .reveal-ready .rv-head::after {
+    transition: transform 0.8s cubic-bezier(0.7, 0, 0.2, 1) calc(var(--d, 0s) + 0.12s);
+  }
+  .reveal-ready .rv-head.is-in::after { transform: scaleX(0); }
+
+  /* A régua no topo da seção é desenhada antes do título. */
+  .reveal-ready .rv-line { position: relative; border-top-color: transparent; }
+  .reveal-ready .rv-line::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--rule-strong);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1s cubic-bezier(0.65, 0, 0.2, 1);
+  }
+  .reveal-ready .rv-line.is-in::before { transform: none; }
+
+  /* Nota CVSS: o marcador percorre a régua e o número sobe junto (--p, pelo script). */
+  .reveal-ready .score { --p: 0; }
+
+  /* Caminho do tráfego: cada elemento entra, o traço até o próximo é desenhado e
+     a seta fecha o trecho. */
+  .reveal-ready .path li {
+    opacity: 0;
+    transform: translateX(-10px);
+    transition:
+      opacity 0.5s ease calc(var(--i, 0) * 260ms),
+      transform 0.6s var(--ease) calc(var(--i, 0) * 260ms);
+  }
+  .reveal-ready .path.is-in li { opacity: 1; transform: none; }
+  .reveal-ready .path li:not(:last-child)::after {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s ease calc(var(--i, 0) * 260ms + 350ms);
+  }
+  .reveal-ready .path li:not(:last-child)::before {
+    opacity: 0;
+    transition: opacity 0.2s ease calc(var(--i, 0) * 260ms + 650ms);
+  }
+  .reveal-ready .path.is-in li:not(:last-child)::after { transform: none; }
+  .reveal-ready .path.is-in li:not(:last-child)::before { opacity: 1; }
+
+  @media (max-width: 860px) {
+    .reveal-ready .path li:not(:last-child)::after {
+      transform: scaleY(0);
+      transform-origin: top;
+    }
+  }
+
+  /* Matriz ATT&CK: as táticas com write-up "acendem" em sequência. A aparência de
+     coberta fica numa camada (::before) que aparece por cima da tracejada. */
+  .reveal-ready .attack li.is-covered {
+    background: none;
+    border: 1px dashed var(--rule-strong);
+    color: var(--muted);
+    transition: color 0.4s ease calc(var(--i, 0) * 90ms);
+  }
+  .reveal-ready .attack li.is-covered strong {
+    color: inherit;
+    transition: color 0.4s ease calc(var(--i, 0) * 90ms);
+  }
+  .reveal-ready .attack li.is-covered::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    z-index: -1;
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius);
+    background: var(--panel);
+    opacity: 0;
+    transition: opacity 0.4s ease calc(var(--i, 0) * 90ms);
+  }
+  .reveal-ready .attack.is-in li.is-covered { color: var(--ink-2); }
+  .reveal-ready .attack.is-in li.is-covered strong { color: var(--ink); }
+  .reveal-ready .attack.is-in li.is-covered::before { opacity: 1; }
+
+  /* Itens que o leitor já passou (link direto, rolagem rápida) aparecem sem animar. */
+  .reveal-ready .is-done,
+  .reveal-ready .is-done *,
+  .reveal-ready .is-done::before,
+  .reveal-ready .is-done::after,
+  .reveal-ready .is-done *::before,
+  .reveal-ready .is-done *::after { transition: none !important; }
+}
+
 /* ---------- Movimento reduzido ---------- */
 
 @media (prefers-reduced-motion: reduce) {
@@ -740,5 +957,8 @@ h4 {
   .project a[href^="http"]::after,
   .case a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.8em; word-break: break-all; }
   .code pre { background: #f3f3f3; color: #000; border: 1px solid #ccc; }
+  .code .c { color: #555; }
+  .code .k { color: #0b5f5a; }
+  .code .s { color: #7a4b00; }
   .redact { background: #000; color: #000; }
 }
